@@ -1,3 +1,4 @@
+export {bunny, brownBun,whiteBun,spottedBun};
 class bunny {
     constructor(x = 0, y = 0, color = "brown", genes = { x1: 1, y1: 0, x2: 1, y2: 0}, hunger = 100, health = 100, age = 0, sex = "f") {
         this.x = x;
@@ -8,20 +9,22 @@ class bunny {
         this.health = health;
         this.age = age;
         this.sex = sex;
-        function createBun(bunny){
+        }
+        createBun(bunny){
 
         }
         
-        function eat(){
+        eat(){
         //If bunny is hungry and food is available, eat
+        console.log("Nom");
         }
         
-        function life(){
+        life(){
         //check to see if bunny is allowed to live :knife:
 
         }
        
-    }
+    
 }
 
 
