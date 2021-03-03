@@ -14,8 +14,9 @@ function init(){
   
     ctx.fillStyle = "Skyblue"; 
     // ctx.fillRect(x,y,width,height);
-    ctx.fillRect(0,0,750,500);
+    ctx.fillRect(0,0,canvas.width,500);
     
+    //Turn grass into tiles?
     ctx.fillStyle = "Green"; 
     // ctx.fillRect(x,y,width,height);
     ctx.fillRect(0,400,750,100);
