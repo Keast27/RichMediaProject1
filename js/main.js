@@ -24,7 +24,12 @@ function init(){
     ctx.fillStyle = "Green"; 
     // ctx.fillRect(x,y,width,height);
     ctx.fillRect(0,400,750,100);
+
+    // Health of first bunny
+    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health + '<br></br>';
     
+    
+    // Add a new bunbun each time spawn button is pressed
     document.querySelector('#spawn').onclick = function()
         {addBunBun(getRandomInt(0,750),getRandomInt(350,500),"white",0,0,50,1,"male",false)};
 
@@ -33,6 +38,7 @@ function init(){
 
 }
 
+// Draw all the bunnies in bunbuns to the screen
 function drawBunbuns()
 {
     for(let i = 0; i < bunbuns.length; i++)
@@ -48,21 +54,25 @@ function drawBunbuns()
         ctx.fillStyle = "pink";
         ctx.fillRect(bunbuns[i].x + 5, bunbuns[i].y - 10, 4, 10);
         ctx.fillRect(bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10);
+
     }
 }
 
+// Add a new bunny to bunbuns 
 function addBunBun(x,y,color,genes,hunger,health,age,sex,mated)
 {
     let bunbunTemp = new bunny(x,y,color,genes,hunger,health,age,sex,mated);
 
     bunbuns.push(bunbunTemp);
+    document.querySelector('#health').innerHTML += "Bunny " + bunbuns.length + ": " + health + '<br></br>';
     drawBunbuns();
 }
 
+// Helper function to get random int grabbed from MDN
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min) + min);
   }
 
 console.log("In bottom of <script> tag!");
