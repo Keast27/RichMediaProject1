@@ -3,6 +3,7 @@ export {init};
 // #1 - wait for page to load
 let bunbun;
 let ctx;
+let color = "white";
 bunbun = new bunny(200,380,"white",0,0,50,1,"male",false);
 
 let bunbuns = [bunbun];
@@ -26,12 +27,22 @@ function init(){
     ctx.fillRect(0,400,750,100);
 
     // Health of first bunny
-    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health + '<br></br>';
+    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
     
     
     // Add a new bunbun each time spawn button is pressed
     document.querySelector('#spawn').onclick = function()
-        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),"white",0,0,50,1,"male",false)};
+        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),color,0,0,50,1,"male",false)};
+
+    // Change color according to input
+    document.querySelector('#bunnyColorChooser').onchange = function (e) {
+        for(let i = 0; i < bunbuns.length; i++)
+        {
+            bunbuns[i].color = e.target.value;
+        }   
+        color = e.target.value; 
+        drawBunbuns();
+    };
 
     drawBunbuns();
     bunbun.eat();
@@ -51,7 +62,7 @@ function drawBunbuns()
         ctx.fillStyle = "black";
         ctx.fillRect(bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10);
         ctx.fillRect(bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10);
-        ctx.fillStyle = "white";
+        ctx.fillStyle = bunbuns[i].color;
         ctx.fillRect(bunbuns[i].x + 3, bunbuns[i].y - 15, 7, 20);
         ctx.fillRect(bunbuns[i].x + 13, bunbuns[i].y - 15, 7, 20);
         ctx.fillStyle = "pink";
@@ -67,6 +78,8 @@ function addBunBun(x,y,color,genes,hunger,health,age,sex,mated)
     let bunbunTemp = new bunny(x,y,color,genes,hunger,health,age,sex,mated);
 
     bunbuns.push(bunbunTemp);
+    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
+    
     drawBunbuns();
 }
 
