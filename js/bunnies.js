@@ -14,14 +14,15 @@ class bunny {
         this.sex = sex;
         this.mated = mated;
 
-        let parentGenes = { x2, y2 };
+        let parentGenes = { x2: 0, y2: 0 };
     }
 
     createBun(bunny) {
         //Average litter is seven uhhh let's go with four for now
         for (let i = 4; i < 4; i++) {
-
-            new bunny(x, y, this.setBaby());
+            let bun;
+            bun = new bunny(x, y, this.setBaby());
+            console.log(bun);
         }
     }
 
