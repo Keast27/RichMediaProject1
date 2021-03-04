@@ -3,7 +3,7 @@ export {init};
 // #1 - wait for page to load
 let bunbun;
 let ctx;
-bunbun = new bunny(1,2,"blue",0,0,50,1,"male",false);
+bunbun = new bunny(200,380,"white",0,0,50,1,"male",false);
 
 let bunbuns = [bunbun];
 
@@ -39,7 +39,16 @@ function drawBunbuns()
     for(let i = 0; i < bunbuns.length; i++)
     {
         ctx.fillStyle = bunbuns[i].color;
-        ctx.fillRect(bunbuns[i].x, bunbuns[i].y, bunbuns[i].x + 5, bunbuns[i].y + 5);
+        ctx.fillRect(bunbuns[i].x, bunbuns[i].y, 25, 50);
+        ctx.fillStyle = "black";
+        ctx.fillRect(bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10);
+        ctx.fillRect(bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10);
+        ctx.fillStyle = "white";
+        ctx.fillRect(bunbuns[i].x + 3, bunbuns[i].y - 15, 7, 20);
+        ctx.fillRect(bunbuns[i].x + 13, bunbuns[i].y - 15, 7, 20);
+        ctx.fillStyle = "pink";
+        ctx.fillRect(bunbuns[i].x + 5, bunbuns[i].y - 10, 4, 10);
+        ctx.fillRect(bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10);
     }
 }
 
