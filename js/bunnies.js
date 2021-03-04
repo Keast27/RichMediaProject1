@@ -14,7 +14,7 @@ class bunny {
         this.age = age;
         this.sex = sex;
         this.mated = mated;
-        let pG = [1, 1];
+        let pG = [1, 0];
         this.parentGenes = pG;
     }
 

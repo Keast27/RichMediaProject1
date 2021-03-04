@@ -4,7 +4,7 @@ export {init};
 let bunbun;
 let ctx;
 let color = "white";
-bunbun = new bunny(200,380,"white",0,0,50,1,"male",false);
+bunbun = new bunny(200,380,"white",1,1,0,50,1,"male",false);
 
 let bunbuns = [bunbun];
 
@@ -46,6 +46,7 @@ function init(){
 
     drawBunbuns();
     bunbun.eat();
+    console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
     bunbun.createBun();
     //bunbuns.push(bunbun.createBun());
 
