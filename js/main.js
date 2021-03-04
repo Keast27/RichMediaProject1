@@ -26,7 +26,7 @@ function init(){
     ctx.fillRect(0,400,750,100);
     
     document.querySelector('#spawn').onclick = function()
-        {addBunBun(5,5,"white",0,0,50,1,"male",false)};
+        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),"white",0,0,50,1,"male",false)};
 
     drawBunbuns();
     bunbun.eat();
@@ -35,7 +35,6 @@ function init(){
 
 function drawBunbuns()
 {
-    console.log(bunbuns.length);
     for(let i = 0; i < bunbuns.length; i++)
     {
         ctx.fillStyle = bunbuns[i].color;
@@ -57,6 +56,13 @@ function addBunBun(x,y,color,genes,hunger,health,age,sex,mated)
     let bunbunTemp = new bunny(x,y,color,genes,hunger,health,age,sex,mated);
 
     bunbuns.push(bunbunTemp);
+    drawBunbuns();
 }
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
 
 console.log("In bottom of <script> tag!");
