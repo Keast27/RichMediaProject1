@@ -32,7 +32,7 @@ function init(){
     
     // Add a new bunbun each time spawn button is pressed
     document.querySelector('#spawn').onclick = function()
-        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),color,0,0,50,1,"male",false)};
+        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),color,1,1,0,50,1,"male",false)};
 
     // Change color according to input
     document.querySelector('#bunnyColorChooser').onchange = function (e) {
@@ -46,6 +46,8 @@ function init(){
 
     drawBunbuns();
     bunbun.eat();
+    bunbun.createBun();
+    //bunbuns.push(bunbun.createBun());
 
 }
 
@@ -73,9 +75,9 @@ function drawBunbuns()
 }
 
 // Add a new bunny to bunbuns 
-function addBunBun(x,y,color,genes,hunger,health,age,sex,mated)
+function addBunBun(x,y,color, g1, g2,hunger,health,age,sex,mated)
 {
-    let bunbunTemp = new bunny(x,y,color,genes,hunger,health,age,sex,mated);
+    let bunbunTemp = new bunny(x,y,color,g1, g2,hunger,health,age,sex,mated);
 
     bunbuns.push(bunbunTemp);
     document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;

@@ -1,74 +1,84 @@
 export { bunny, brownBun, whiteBun, spottedBun };
 class bunny {
-    constructor(x = 0, y = 0, color = "brown", genes = { x1: 1, y1: 1 }, hunger = 100, health = 100, age = 0, sex = "f", mated = false) {
+    constructor(x = 0, y = 0, color = "brown", g1 = 1, g2 = 1, hunger = 100, health = 100, age = 0, sex = "f", mated = false, parentGenes) {
         //Location
         this.x = x;
         this.y = y;
 
         //Traits
         this.color = color;
-        this.genes = genes;
+        let g = [g1, g2];
+        this.genes = g;
         this.hunger = hunger;
         this.health = health;
         this.age = age;
         this.sex = sex;
         this.mated = mated;
-
-        let parentGenes = { x2: 0, y2: 0 };
+        let pG = [1, 1];
+        this.parentGenes = pG;
     }
 
-    createBun(bunny) {
+    createBun() {
+        console.log("bun!!");
         //Average litter is seven uhhh let's go with four for now
-        for (let i = 4; i < 4; i++) {
+        for (let i = 0; i < 4; i++) {
             let bun;
-            bun = new bunny(x, y, this.setBaby());
-            console.log(bun);
+            let newGenes = this.setBaby();
+            bun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1]);
+
+            console.log("Baby Genes:" + newGenes);
+
         }
     }
 
     setBaby() {
 
-        let momGenes = this.genes.x1 + this.genes.x2;
-        let dadGenes = parentGenes.x2 + parentGenes.y2;
-        let babyGenes;
-
+        let momGenes = this.genes[1] + this.genes[1];
+        let dadGenes = this.parentGenes[1] + this.parentGenes[1];
+        let babyGenes = [5, 5];
+        // babyGenes.x1 = 10;
         let mix = momGenes + dadGenes;
+    
         //Dom + Hybrid (2 +vs 1)
         if (mix == 3) {
             let chance = Math.floor(Math.random() * 3) + 1;
-            if (chance == 1) babyGenes = { x1: 1, x2: 1 };
-            if (chance == 2) babyGenes = { x1: 1, x2: 0 };
+            if (chance == 1) { let newGenes = [1, 1]; return newGenes; }
+            if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
         }
         //Rec vs Hybrid (0 +vs 1)
         if (mix == 1) {
             let chance = Math.floor(Math.random() * 2) + 1;
-            if (chance == 1) babyGenes = { x1: 0, x2: 0 };
-            if (chance == 2) babyGenes = { x1: 1, x2: 0 };
+            if (chance == 1) { let newGenes = [0, 0]; return newGenes; }
+            if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
         }
 
         if (mix == 2) {
             //Dom + Rec
-            if (Math.abs(momGenes - dadGenes) = 2) {
+            if (Math.abs(momGenes - dadGenes) == 2) {
+                babyGenes.x1 = 10;
                 let chance = Math.floor(Math.random() * 2) + 1;
-                if (chance == 1) babyGenes = { x1: 0, x2: 0 };
-                if (chance == 2) babyGenes = { x1: 1, x2: 0 };
+                if (chance == 1) { let newGenes = [0, 0]; return newGenes; }
+                if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
+
             }
             //Hybrid + Hybrid
             if (Math.abs(momGenes - dadGenes) = 0) {
+                babyGenes.x1 = 11;
                 let chance = Math.floor(Math.random() * 4) + 1;
-                if(chance % 2 == 0) babyGenes = { x1: 1, x2: 0 };
-                if(chance == 1) babyGenes = { x1: 1, x2: 1 };
-                if(chance == 3) babyGenes = { x1: 0, x2: 0 };
+                if (chance % 2 == 0) { let newGenes = [1, 0]; return newGenes; }
+                if (chance == 1) { let newGenes = [1, 1]; return newGenes; }
+                if (chance == 3) { let newGenes = [0, 0]; return newGenes; }
             }
         }
         //Rec + Rec
         if (mix == 0) {
-            babyGenes = { x1: 0, x2: 0 }
+            let newGenes = [0, 0]; return newGenes;
         }
         //Dom + Dom
         if (mix == 4) {
-            babyGenes = { x1: 1, x2: 1 }
+            let newGenes = [1, 1]; return newGenes;
         }
+        console.log(babyGenes);
         return babyGenes;
     }
 
