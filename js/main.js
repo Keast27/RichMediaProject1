@@ -25,6 +25,10 @@ function init(){
 
 }
 
+function update(){
+    requestAnimationFrame(update);
+}
+
 
 
 console.log("In bottom of <script> tag!");
