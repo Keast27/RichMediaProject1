@@ -39,7 +39,7 @@ class bunny {
         let babyGenes = [5, 5];
         // babyGenes.x1 = 10;
         let mix = momGenes + dadGenes;
-    
+
         //Dom + Hybrid (2 +vs 1)
         if (mix == 3) {
             let chance = Math.floor(Math.random() * 3) + 1;
@@ -87,10 +87,10 @@ class bunny {
         width = 7;
         height = 20;
         //get genes
-        if((bun.x < this.x + width && bun.x + width > this.x && 
-            bun.y < this.y + height && bun.y + height > this.y)){
-            if(this.sex != bun.sex){
-                if(this.sex == "f"){
+        if ((bun.x < this.x + width && bun.x + width > this.x &&
+            bun.y < this.y + height && bun.y + height > this.y)) {
+            if (this.sex != bun.sex) {
+                if (this.sex == "f") {
                     this.parentGenes = bun.genes;
                     this.mated = true;
                 }
@@ -104,28 +104,42 @@ class bunny {
         console.log("Nom");
     }
 
+    walk() {
+        let strideX = Math.floor(Math.random() * 20) + 5;
+        let strideY = Math.floor(Math.random() * 10) + 3;
+        let vector1 = 1;
+        let vector2 = 1;
+        if (strideX % 2 == 0) vector1 = -vector1;
+        if (strideX % 2 == 0) vector2 = -vector2;
+
+        this.x += strideX;
+        this.y += strideY;
+    }
     life() {
         //check to see if bunny is allowed to live :knife:
-        hunger--;
-        age++;
+        this.hunger--;
+        this.age++;
 
-        if (hunger < 70) {
+        this.walk();
+
+        if (this.hunger < 70) {
             this.eat();
-        } 
+        }
 
-        if(hunger <= 0) life--;
+        if (this.hunger <= 0) this.life--;
 
         //on average, rabbits live to 9 years
-        if (age == 9 || health == 0) {
+        if (this.age == 9 || this.health == 0) {
             this.alive = false;
             //If dead remove from draw list
         }
 
         //Add check for pregnancy time?? idk. Pregnancy time is 4-5 weeks
-        if (sex == "f" && mated) {
+        if (this.sex == "f" && this.mated) {
             this.createBun();
         }
     }
+
 }
 
 

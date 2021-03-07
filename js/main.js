@@ -49,13 +49,34 @@ function init(){
     console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
     bunbun.createBun();
     //bunbuns.push(bunbun.createBun());
-
+  //  update(ctx);
 }
 
 // Draw all the bunnies in bunbuns to the screen
-function update(){
+function update(ctx){
     requestAnimationFrame(update);
+    for(let i = 0; i < bunbuns.length; i++){
+        bunbuns[i].walk();
+        
+        console.log(bunbuns[i]);
+        drawBunbuns();
+   //     clear(ctx);
+    }
+    
 }
+
+function clear(ctx){
+    ctx.fillStyle = "Skyblue"; 
+    // ctx.fillRect(x,y,width,height);
+    ctx.fillRect(0,0,canvas.width,500);
+    
+    //Turn grass into tiles?
+    ctx.fillStyle = "Green"; 
+    // ctx.fillRect(x,y,width,height);
+    ctx.fillRect(0,400,750,100);
+
+}
+
 function drawBunbuns()
 {
     for(let i = 0; i < bunbuns.length; i++)
@@ -73,6 +94,7 @@ function drawBunbuns()
         ctx.fillRect(bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10);
 
     }
+    
 }
 
 // Add a new bunny to bunbuns 
