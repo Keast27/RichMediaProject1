@@ -7,7 +7,7 @@ let ctx;
 let bunbun =  new bunny(200,380,"white",1,1,0,50,1,"male",false);
 let color = "white";
 let bunbuns = [bunbun];
-
+let daytime = "noon";
 
 
 function init(){
@@ -28,6 +28,14 @@ function init(){
         color = e.target.value; 
     };
     
+    document.querySelector('#dayTimeChooser').onchange = function (e) {
+        for(let i = 0; i < bunbuns.length; i++)
+        {
+            daytime = e.target.value;
+        }   
+        color = e.target.value; 
+    };
+
     // #7 Add a new bunbun each time spawn button is pressed
     document.querySelector('#spawn').onclick = function()
         {addBunBun(getRandomInt(50,700),getRandomInt(350,450),color,1,1,0,50,1,"male",false)};
@@ -60,8 +68,47 @@ function clear(){
     ctx = canvas.getContext('2d');
     
     // Fill sky in
-    ctx.fillStyle = "Skyblue"; 
-    ctx.fillRect(0,0,canvas.width,500);
+    if(daytime == "noon")
+    {
+        ctx.fillStyle = "Skyblue"; 
+        ctx.fillRect(0,0,canvas.width,500);
+        
+        ctx.fillStyle = "white"
+        ctx.fillRect(50,70,100,40);
+        ctx.fillRect(110,40,40,40);
+        ctx.fillRect(85,55,30,20);
+
+        ctx.fillRect(550,140,100,40);
+        ctx.fillRect(580,110,40,40);
+        ctx.fillRect(565,125,65,20);
+    }
+    else if(daytime == "sunset")
+    {
+        ctx.fillStyle = "#cd9acb"; 
+        ctx.fillRect(0,0,canvas.width,100);
+        ctx.fillStyle = "#d4ac94"; 
+        ctx.fillRect(0,100,canvas.width,100);
+        ctx.fillStyle = "#fa9621"; 
+        ctx.fillRect(0,200,canvas.width,100);
+    }
+    else if(daytime == "night")
+    {
+        ctx.fillStyle = "black"; 
+        ctx.fillRect(0,0,canvas.width,500);
+        
+        ctx.fillStyle = "white"
+        ctx.fillRect(50,70,10,40);
+        ctx.fillRect(35,85,40,10);
+        ctx.fillRect(150,170,10,40);
+        ctx.fillRect(135,185,40,10);
+        ctx.fillRect(320,40,10,40);
+        ctx.fillRect(305,55,40,10);
+        ctx.fillRect(550,90,10,40);
+        ctx.fillRect(535,105,40,10);
+        ctx.fillRect(600,40,50,50);
+        ctx.fillStyle = "gray";
+        ctx.fillRect(630,50,15,15);
+    }
     
     //Turn grass into tiles?
     ctx.fillStyle = "rgb(177, 252, 164)"; 
