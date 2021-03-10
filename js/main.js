@@ -8,6 +8,8 @@ let bunbun =  new bunny(200,380,"white",1,1,0,50,1,"male",false);
 let color = "white";
 let bunbuns = [bunbun];
 
+
+
 function init(){
     console.log("init() called");
     // #2 - get pointer to <canvas> element on page
@@ -39,10 +41,10 @@ function init(){
     
     // #7 Add a new bunbun each time spawn button is pressed
     document.querySelector('#spawn').onclick = function()
-        {addBunBun(getRandomInt(0,750),getRandomInt(350,500),color,1,1,0,50,1,"male",false)};
+        {addBunBun(getRandomInt(50,700),getRandomInt(350,450),color,1,1,0,50,1,"male",false)};
 
     console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
-    //bunbuns.push(bunbun.createBun());
+    // #8 Call update
     update();
 }
 
@@ -54,8 +56,6 @@ function update(){
     for(let i = 0; i < bunbuns.length; i++){
         bunbuns[i].walk();
         bunbuns[i].eat();
-
-        console.log(bunbuns[i]);
     }
 
     // Clear the screen and draw in the bunnies

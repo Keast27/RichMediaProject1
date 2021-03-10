@@ -1,4 +1,8 @@
 export { bunny, brownBun, whiteBun, spottedBun };
+
+let n1;
+let n2;
+
 class bunny {
     constructor(x = 0, y = 0, color = "brown", g1 = 1, g2 = 1, hunger = 100, health = 100, age = 0, sex = "f", mated = false) {
         //Location
@@ -17,6 +21,9 @@ class bunny {
         let pG = [1, 0];
         this.parentGenes = pG;
         this.alive = true;
+
+        n1 = 0;
+        n2 = 0;
     }
 
     createBun() {
@@ -105,15 +112,28 @@ class bunny {
     }
 
     walk() {
-        let strideX = Math.floor(Math.random() * 20) + 5;
-        let strideY = Math.floor(Math.random() * 10) + 3;
-        let vector1 = 1;
-        let vector2 = 1;
-        if (strideX % 2 == 0) vector1 = -vector1;
-        if (strideX % 2 == 0) vector2 = -vector2;
 
-        this.x += strideX;
-        this.y += strideY;
+        //Logic to move the bunny every 100 frames
+        n1 += 1;
+
+        if(n1 > 2)
+        {
+            n1 = 0;
+
+
+            let strideX = getRandomInt(1,20);
+            let strideY = getRandomInt(1,10);
+            if (strideX % 2 == 0) strideX *= -1;
+            if (strideX % 2 == 0) strideY *= -1;
+
+            this.x += strideX;
+            this.y += strideY;
+
+            if(this.x > 700) this.x -= strideX * 2;
+            if(this.x < 50) this.x -= strideX * 2;
+            if(this.y > 450) this.y -= strideY * 2;
+            if(this.y < 350) this.y -= strideY * 2
+        }
     }
 
     life() {
@@ -156,4 +176,12 @@ class whiteBun extends bunny {
 
 class spottedBun extends bunny {
 
+}
+
+
+/// Helper function to get random int
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
 }
