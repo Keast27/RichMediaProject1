@@ -115,7 +115,9 @@ class bunny {
         this.x += strideX;
         this.y += strideY;
     }
+
     life() {
+        console.log("Keast is a dweeb");
         //check to see if bunny is allowed to live :knife:
         this.hunger--;
         this.age++;

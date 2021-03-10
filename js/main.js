@@ -41,40 +41,41 @@ function init(){
             bunbuns[i].color = e.target.value;
         }   
         color = e.target.value; 
-        drawBunbuns();
     };
 
-    drawBunbuns();
     bunbun.eat();
     console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
-    bunbun.createBun();
     //bunbuns.push(bunbun.createBun());
-  //  update(ctx);
+    update();
 }
 
 // Draw all the bunnies in bunbuns to the screen
-function update(ctx){
+function update(){
     requestAnimationFrame(update);
+
     for(let i = 0; i < bunbuns.length; i++){
         bunbuns[i].walk();
         
         console.log(bunbuns[i]);
-        drawBunbuns();
-   //     clear(ctx);
     }
-    
+
+    clear();
+    drawBunbuns();
 }
 
-function clear(ctx){
+function clear(){
+
+    // Bad code, hopefully should change this later
+    let canvas = document.querySelector('canvas');
+    ctx = canvas.getContext('2d');
+    
+    // Fill sky in
     ctx.fillStyle = "Skyblue"; 
-    // ctx.fillRect(x,y,width,height);
     ctx.fillRect(0,0,canvas.width,500);
     
     //Turn grass into tiles?
     ctx.fillStyle = "Green"; 
-    // ctx.fillRect(x,y,width,height);
     ctx.fillRect(0,400,750,100);
-
 }
 
 function drawBunbuns()
@@ -92,7 +93,6 @@ function drawBunbuns()
         ctx.fillStyle = "pink";
         ctx.fillRect(bunbuns[i].x + 5, bunbuns[i].y - 10, 4, 10);
         ctx.fillRect(bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10);
-
     }
     
 }
@@ -105,7 +105,6 @@ function addBunBun(x,y,color, g1, g2,hunger,health,age,sex,mated)
     bunbuns.push(bunbunTemp);
     document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
     
-    drawBunbuns();
 }
 
 function getRandomInt(min, max) {
