@@ -116,7 +116,7 @@ class bunny {
         //Logic to move the bunny every 100 frames
         n1 += 1;
 
-        if(n1 > 2)
+        if(n1 > 25)
         {
             n1 = 0;
 

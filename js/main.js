@@ -12,20 +12,9 @@ let bunbuns = [bunbun];
 
 function init(){
     console.log("init() called");
-    // #2 - get pointer to <canvas> element on page
-    let canvas = document.querySelector('canvas');
-    
-    // #3 - get pointer to "drawing context" and drawing API
-    ctx = canvas.getContext('2d');
-    
-    // #4 - Draw basic canvas
-    ctx.fillStyle = "Skyblue"; 
-    // ctx.fillRect(x,y,width,height);
-    ctx.fillRect(0,0,canvas.width,500);
-    //Turn grass into tiles?
-    ctx.fillStyle = "Green"; 
-    // ctx.fillRect(x,y,width,height);
-    ctx.fillRect(0,400,750,100);
+   
+    // #1-4 draw in scene
+    clear();
 
     // #5 Health of first bunny
     document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
@@ -75,6 +64,26 @@ function clear(){
     ctx.fillRect(0,0,canvas.width,500);
     
     //Turn grass into tiles?
+    ctx.fillStyle = "rgb(177, 252, 164)"; 
+    ctx.fillRect(200,270,550,150);
+    ctx.beginPath();
+    ctx.strokeStyle = "rgb(177, 252, 164)"; 
+    ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.fillStyle = "rgb(112, 224, 112)"; 
+    ctx.fillRect(0,335,750,70);
+    ctx.fillStyle = "rgb(112, 224, 112)"; 
+    ctx.fillRect(0,300,300,100);
+    ctx.beginPath();
+    ctx.moveTo(0,350);
+    ctx.bezierCurveTo(300,150,300,500,750,300);
+    ctx.lineWidth = 50;
+    ctx.strokeStyle = "rgb(112, 224, 112)";
+    ctx.stroke();
+
+    
+    
     ctx.fillStyle = "Green"; 
     ctx.fillRect(0,400,750,100);
 }
@@ -114,5 +123,6 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }
+
 
 console.log("In bottom of <script> tag!");
