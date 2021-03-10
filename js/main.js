@@ -126,7 +126,6 @@ function clear(){
     ctx.bezierCurveTo(300,150,300,500,750,300);
     ctx.lineWidth = 50;
     ctx.strokeStyle = "rgb(112, 224, 112)";
-    ctx.closePath();
     ctx.stroke();
 
     ctx.fillStyle = "Green"; 
