@@ -102,7 +102,7 @@ class bunny {
     checkCollison(bun) {
         let width = 7;
         let height = 20;
-        if (!this.mated) {
+        if (!this.mated && this.age > 1) {
             //get genes
             if ((bun.x < this.x + width && bun.x + width > this.x &&
                 bun.y < this.y + height && bun.y + height > this.y)) {
@@ -120,7 +120,7 @@ class bunny {
 
     eat() {
         //Look for if food is available, eat
-        console.log("Nom");
+       // console.log("Nom");
     }
 
     walk() {
@@ -151,7 +151,7 @@ class bunny {
     lifeHandler() {
         //check to see if bunny is allowed to live :knife:
         this.hunger--;
-        this.age++;
+        this.age+= 0.05;
 
         this.walk();
 
@@ -163,7 +163,7 @@ class bunny {
         if (this.hunger <= 0) this.life--;
 
         //on average, rabbits live to 9 years
-        if (this.age == 9 || this.health == 0) {
+        if (this.age > 9 || this.health == 0) {
             this.alive = false;
             //If dead remove from draw list
         }
