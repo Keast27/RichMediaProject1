@@ -22,26 +22,31 @@ class bunny {
         this.parentGenes = pG;
         this.alive = true;
 
+        this.pregTime = 0;
+        this.BunBatch = [];
+
         n1 = 0;
         n2 = 0;
     }
 
     createBun() {
         console.log("bun!!");
+      
         //Average litter is seven uhhh let's go with four for now
         for (let i = 0; i < 4; i++) {
-            let bun;
             let newGenes = this.setBaby();
             let chance = Math.floor(Math.random() * 2) + 1;
             let sex;
             if (chance == 1) sex = "f";
             if (chance == 2) sex = "m"
-            bun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex);
+            this.BunBatch.push( new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex));
 
             console.log("Baby Genes:" + newGenes);
 
         }
     }
+
+  
 
     setBaby() {
 
@@ -121,29 +126,29 @@ class bunny {
     walk() {
 
         //Logic to move the bunny every 100 frames
+        /*
         n1 += 1;
 
         if (n1 > 25) {
             n1 = 0;
+*/
 
+        let strideX = getRandomInt(1, 20);
+        let strideY = getRandomInt(1, 10);
+        if (strideX % 2 == 0) strideX *= -1;
+        if (strideY % 2 == 0) strideY *= -1;
 
-            let strideX = getRandomInt(1, 20);
-            let strideY = getRandomInt(1, 10);
-            if (strideX % 2 == 0) strideX *= -1;
-            if (strideY % 2 == 0) strideY *= -1;
+        this.x += strideX;
+        this.y += strideY;
 
-            this.x += strideX;
-            this.y += strideY;
-
-            if (this.x > 700) this.x -= strideX * 2;
-            if (this.x < 50) this.x -= strideX * 2;
-            if (this.y > 450) this.y -= strideY * 2;
-            if (this.y < 350) this.y -= strideY * 2
-        }
+        if (this.x > 700) this.x -= strideX * 2;
+        if (this.x < 50) this.x -= strideX * 2;
+        if (this.y > 450) this.y -= strideY * 2;
+        if (this.y < 350) this.y -= strideY * 2
+        //    }
     }
 
-    life() {
-        console.log("Keast is a dweeb");
+    lifeHandler() {
         //check to see if bunny is allowed to live :knife:
         this.hunger--;
         this.age++;
@@ -165,7 +170,13 @@ class bunny {
 
         //Add check for pregnancy time?? idk. Pregnancy time is 4-5 weeks
         if (this.sex == "f" && this.mated) {
+            this.pregTime++;
+
+            if(this.pregTime == 50){
             this.createBun();
+            this.mated = false;
+            this.pregTime = 0;
+            }
         }
     }
 
