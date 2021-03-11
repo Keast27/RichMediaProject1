@@ -32,7 +32,11 @@ class bunny {
         for (let i = 0; i < 4; i++) {
             let bun;
             let newGenes = this.setBaby();
-            bun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1]);
+            let chance = Math.floor(Math.random() * 2) + 1;
+            let sex;
+            if (chance == 1) sex = "f";
+            if (chance == 2) sex = "m"
+            bun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex);
 
             console.log("Baby Genes:" + newGenes);
 
@@ -91,8 +95,8 @@ class bunny {
     }
 
     checkCollison(bun) {
-        width = 7;
-        height = 20;
+        let width = 7;
+        let height = 20;
         //get genes
         if ((bun.x < this.x + width && bun.x + width > this.x &&
             bun.y < this.y + height && bun.y + height > this.y)) {
@@ -100,6 +104,7 @@ class bunny {
                 if (this.sex == "f") {
                     this.parentGenes = bun.genes;
                     this.mated = true;
+                    console.log("Sin has been commenced")
                 }
             }
         }
@@ -143,6 +148,7 @@ class bunny {
         this.age++;
 
         this.walk();
+       
 
         if (this.hunger < 70) {
             this.eat();
