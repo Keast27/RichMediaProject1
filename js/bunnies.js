@@ -97,14 +97,16 @@ class bunny {
     checkCollison(bun) {
         let width = 7;
         let height = 20;
-        //get genes
-        if ((bun.x < this.x + width && bun.x + width > this.x &&
-            bun.y < this.y + height && bun.y + height > this.y)) {
-            if (this.sex != bun.sex) {
-                if (this.sex == "f") {
-                    this.parentGenes = bun.genes;
-                    this.mated = true;
-                    console.log("Sin has been commenced")
+        if (!this.mated) {
+            //get genes
+            if ((bun.x < this.x + width && bun.x + width > this.x &&
+                bun.y < this.y + height && bun.y + height > this.y)) {
+                if (this.sex != bun.sex) {
+                    if (this.sex == "f") {
+                        this.parentGenes = bun.genes;
+                        this.mated = true;
+                        console.log("Sin has been commenced")
+                    }
                 }
             }
         }
@@ -121,23 +123,22 @@ class bunny {
         //Logic to move the bunny every 100 frames
         n1 += 1;
 
-        if(n1 > 25)
-        {
+        if (n1 > 25) {
             n1 = 0;
 
 
-            let strideX = getRandomInt(1,20);
-            let strideY = getRandomInt(1,10);
+            let strideX = getRandomInt(1, 20);
+            let strideY = getRandomInt(1, 10);
             if (strideX % 2 == 0) strideX *= -1;
-            if (strideX % 2 == 0) strideY *= -1;
+            if (strideY % 2 == 0) strideY *= -1;
 
             this.x += strideX;
             this.y += strideY;
 
-            if(this.x > 700) this.x -= strideX * 2;
-            if(this.x < 50) this.x -= strideX * 2;
-            if(this.y > 450) this.y -= strideY * 2;
-            if(this.y < 350) this.y -= strideY * 2
+            if (this.x > 700) this.x -= strideX * 2;
+            if (this.x < 50) this.x -= strideX * 2;
+            if (this.y > 450) this.y -= strideY * 2;
+            if (this.y < 350) this.y -= strideY * 2
         }
     }
 
@@ -148,7 +149,7 @@ class bunny {
         this.age++;
 
         this.walk();
-       
+
 
         if (this.hunger < 70) {
             this.eat();

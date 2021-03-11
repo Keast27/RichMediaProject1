@@ -141,6 +141,11 @@ function drawBunbuns() {
     for (let i = 0; i < bunbuns.length; i++) {
         ctx.fillStyle = bunbuns[i].color;
         ctx.fillRect(bunbuns[i].x, bunbuns[i].y, 25, 50);
+        if(bunbuns[i].mated){
+            ctx.fillStyle = "pink";
+            ctx.fillRect(bunbuns[i].x + 4, bunbuns[i].y + 18, 6, 4);
+            ctx.fillRect(bunbuns[i].x + 16, bunbuns[i].y + 18, 6, 4);
+            }
         ctx.fillStyle = "black";
         ctx.fillRect(bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10);
         ctx.fillRect(bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10);
