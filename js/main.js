@@ -8,7 +8,7 @@ let bunbun = new bunny(200, 380, "white", 1, 1, 0, 50, 1, "m", false);
 let color = "white";
 let bunbuns = [bunbun];
 let daytime = "noon";
-
+const fps = 5;
 
 function init() {
     console.log("init() called");
@@ -51,16 +51,17 @@ function init() {
 
 // To run every frame
 function update() {
-    requestAnimationFrame(update);
+    setTimeout(update,1000/fps);
+   
 
-    // Have bunnies eat and walk
+    //Trigger manager function
     for (let i = 0; i < bunbuns.length; i++) {
-        bunbuns[i].walk();
-       // bunbuns[i].eat();
+        bunbuns[i].lifeHandler();
+        if(!bunbuns[i].alive) killBun(bunbuns[i]);
     }
 
     checkRomanticLife();
-
+    
     // Clear the screen and draw in the bunnies
     clear();
     drawBunbuns();
@@ -168,10 +169,20 @@ function addBunBun(x, y, color, g1, g2, hunger, health, age, sex, mated) {
 }
 
 function checkRomanticLife(){
+    //Make bunny... Oh... You know
     for(let i = 0; i < bunbuns.length; i++){
         for(let j = 0; j < bunbuns.length; j++){
             bunbuns[i].checkCollison(bunbuns[j]);
         }
+    //If the bunny is carrying babies, deliver them
+        if( bunbuns[i].BunBatch.length != 0)(getBabies(bunbuns[i]));
+    }
+}
+
+//Pops and returns babies, adds them to world list.
+function getBabies(bun) {
+    for(let i = 0; i < bun.BunBatch.length; i++){
+        bunbuns.push(bun.BunBatch.shift());
     }
 }
 
@@ -182,5 +193,12 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+function killBun(deadBun) {
+    let aliveBuns = [];
+    bunbuns.forEach(bunbun => {
+        if(bunbun != deadBun) aliveBuns.push(bunbun);
+    });
+    bunbuns = aliveBuns;
+}
 
 console.log("In bottom of <script> tag!");
