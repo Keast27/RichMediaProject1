@@ -1,4 +1,4 @@
-import { bunny, brownBun, whiteBun, spottedBun } from './bunnies.js';
+import { bunny } from './bunnies.js';
 export { init };
 // #1 - wait for page to load
 
@@ -6,6 +6,7 @@ export { init };
 let ctx;
 let bunbun = new bunny(200, 380, "white", 1, 1, 0, 50, 1, "m", false);
 let color = "white";
+let newBunColor = "white";
 let bunbuns = [bunbun];
 let daytime = "noon";
 const fps = 5;
@@ -21,10 +22,12 @@ function init() {
 
     // #6 Change color according to input
     document.querySelector('#bunnyColorChooser').onchange = function (e) {
+        /*
         for (let i = 0; i < bunbuns.length; i++) {
             bunbuns[i].color = e.target.value;
         }
-        color = e.target.value;
+        */
+        newBunColor = e.target.value;
     };
 
     document.querySelector('#dayTimeChooser').onchange = function (e) {
@@ -39,7 +42,7 @@ function init() {
         let sex;
         if (chance == 1) sex = "f";
         if (chance == 2) sex = "m"
-        addBunBun(getRandomInt(50, 700), getRandomInt(350, 450), color, 1, 1, 0, 50, 1, sex, false)
+        addBunBun(getRandomInt(50, 700), getRandomInt(350, 450), newBunColor, 1, 1, 0, 50, 1, sex, false)
 
         console.log(bunbuns);
     };
@@ -162,11 +165,24 @@ function drawBunbuns() {
 /// Add a new bunny to bunbuns 
 function addBunBun(x, y, color, g1, g2, hunger, health, age, sex, mated) {
     let bunbunTemp = new bunny(x, y, color, g1, g2, hunger, health, age, sex, mated);
+    geneBasedOnColor(bunbunTemp);
     bunbuns.push(bunbunTemp);
 
     // Add the health of the bunnies
     document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
 }
+
+function geneBasedOnColor(bun){
+    
+    if (bun.color == "white"){
+        bun.genes = [1,1];
+    } else if (bun.color == "gray"){
+        bun.genes = [1,0];
+    }else if (bun.color == "brown"){
+        bun.genes = [0,0];
+    }
+}
+
 
 function checkRomanticLife(){
     //Make bunny... Oh... You know

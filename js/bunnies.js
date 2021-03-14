@@ -1,4 +1,4 @@
-export { bunny, brownBun, whiteBun, spottedBun };
+export { bunny};
 
 let n1;
 let n2;
@@ -39,14 +39,25 @@ class bunny {
             let sex;
             if (chance == 1) sex = "f";
             if (chance == 2) sex = "m"
-            this.BunBatch.push( new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex));
+            let babyBun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex);
+            this.setColor(babyBun);
+            this.BunBatch.push(babyBun);
 
             console.log("Baby Genes:" + newGenes);
 
         }
     }
 
-  
+    setColor(baby){
+        let determinet = baby.genes[0] + baby.genes[1];
+        if(determinet == 2 ){
+            baby.color = "white";
+        } else if(determinet == 1){
+            baby.color = "gray";
+        }else if (determinet == 0){
+            baby.color = "brown";
+        }
+    }
 
     setBaby() {
 
@@ -179,20 +190,6 @@ class bunny {
             }
         }
     }
-
-}
-
-
-
-class brownBun extends bunny {
-
-}
-
-class whiteBun extends bunny {
-
-}
-
-class spottedBun extends bunny {
 
 }
 
