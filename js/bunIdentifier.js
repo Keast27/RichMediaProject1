@@ -27,7 +27,7 @@ function bunPortrait(ctx) {
     } else {
         ctx.fillStyle = "black"
         ctx.fillText("Click on a lil bun ", 130, 50);
-        ctx.fillText("to view its status!", 130, 90);
+        ctx.fillText("to view its status!", 130, 80);
     }
 }
 
@@ -41,6 +41,12 @@ function drawBun(ctx) {
         ctx.fillStyle = "pink";
         ctx.fillRect(40, 40, 7, -20);
         ctx.fillRect(65, 40, 7, -20);
+
+        if(bun.mated){
+            ctx.fillRect(36, 63, 15, 15);
+            ctx.fillRect(69, 63, 15, 15);
+        }
+
         ctx.fillStyle = "black";
         ctx.fillRect(44, 70, 7, -20);
         ctx.fillRect(69, 70, 7, -20);
@@ -50,11 +56,11 @@ function drawBun(ctx) {
 
 function drawStats(ctx) {
     ctx.fillStyle = "black"
-    ctx.fillText("Age: " + currentBun.age, 130, 50);
-    ctx.fillText("Sex: " + getSex(currentBun.sex), 130, 90);
-    ctx.fillText("Genes: " + getGenes(currentBun.genes), 130, 120);
-    ctx.fillText("Health: " + currentBun.health, 130, 150);
-    ctx.fillText("Color: " + currentBun.color, 130, 180);
+    ctx.fillText("Age: " + Math.round(currentBun.age), 130, 50);
+    ctx.fillText("Sex: " + getSex(currentBun.sex), 130, 80);
+    ctx.fillText("Genes: " + getGenes(currentBun.genes), 130, 110);
+    ctx.fillText("Health: " + currentBun.health, 130, 140);
+    ctx.fillText("Color: " + currentBun.color, 130, 170);
 }
 
 function getSex(sex) {
