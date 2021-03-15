@@ -1,4 +1,4 @@
-export { bunny};
+export { bunny };
 
 let n1;
 let n2;
@@ -24,14 +24,15 @@ class bunny {
 
         this.pregTime = 0;
         this.BunBatch = [];
-
+        this.width = 25;
+        this.height = 70;
         n1 = 0;
         n2 = 0;
     }
 
     createBun() {
         console.log("bun!!");
-      
+
         //Average litter is seven uhhh let's go with four for now
         for (let i = 0; i < 4; i++) {
             let newGenes = this.setBaby();
@@ -48,13 +49,13 @@ class bunny {
         }
     }
 
-    setColor(baby){
+    setColor(baby) {
         let determinet = baby.genes[0] + baby.genes[1];
-        if(determinet == 2 ){
+        if (determinet == 2) {
             baby.color = "white";
-        } else if(determinet == 1){
+        } else if (determinet == 1) {
             baby.color = "gray";
-        }else if (determinet == 0){
+        } else if (determinet == 0) {
             baby.color = "brown";
         }
     }
@@ -111,8 +112,8 @@ class bunny {
     }
 
     checkCollison(bun) {
-        let width = 7;
-        let height = 20;
+        let width = this.width;
+        let height = this.height;
         if (!this.mated && this.age > 1) {
             //get genes
             if ((bun.x < this.x + width && bun.x + width > this.x &&
@@ -131,7 +132,7 @@ class bunny {
 
     eat() {
         //Look for if food is available, eat
-       // console.log("Nom");
+        // console.log("Nom");
     }
 
     walk() {
@@ -162,7 +163,7 @@ class bunny {
     lifeHandler() {
         //check to see if bunny is allowed to live :knife:
         this.hunger--;
-        this.age+= 0.05;
+        this.age += 0.05;
 
         this.walk();
 
@@ -183,11 +184,30 @@ class bunny {
         if (this.sex == "f" && this.mated) {
             this.pregTime++;
 
-            if(this.pregTime == 50){
-            this.createBun();
-            this.mated = false;
-            this.pregTime = 0;
+            if (this.pregTime == 50) {
+                this.createBun();
+                this.mated = false;
+                this.pregTime = 0;
             }
+        }
+    }
+
+    checkMouseCollision(mouseX, mouseY) {
+        let width = this.width;
+        let height = this.height;
+        //Being kind with the collision box
+        let buffer = 10;
+        console.log("X range: " + this.x + " " + (this.x + width));
+        console.log("Y range: " + (this.y + 20)+ " " + (this.y + height));
+        //get genes
+        if ((this.x - buffer < mouseX && this.x + width + buffer > mouseX &&
+            this.y - 25< mouseY && this.y + height - 20 > mouseY)) {
+            console.log("Bun clicked!!");
+            return true;
+
+        }else{
+            console.log("Bun not clicked!!")
+            return false;
         }
     }
 
