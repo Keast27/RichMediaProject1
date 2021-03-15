@@ -7,7 +7,7 @@ export { init };
 let ctx;
 let ctx2;
 let canvases;
-let bunbun = new bunny(200, 380, "white", 1, 1, 0, 50, 1, "m", false);
+let bunbun = new bunny(200, 380, "white", 1, 1, 0, 100, 1, "f", false);
 let color = "white";
 let newBunColor = "white";
 let bunbuns = [bunbun];
