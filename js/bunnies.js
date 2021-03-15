@@ -20,14 +20,12 @@ class bunny {
         this.mated = mated;
         let pG = [1, 0];
         this.parentGenes = pG;
+        this.parentColor = "blue";
         this.alive = true;
-
         this.pregTime = 0;
         this.BunBatch = [];
         this.width = 25;
         this.height = 70;
-        n1 = 0;
-        n2 = 0;
     }
 
     createBun() {
@@ -121,6 +119,7 @@ class bunny {
                 if (this.sex != bun.sex) {
                     if (this.sex == "f") {
                         this.parentGenes = bun.genes;
+                        this.parentColor = bun.color;
                         this.mated = true;
                         console.log("Sin has been commenced")
                     }

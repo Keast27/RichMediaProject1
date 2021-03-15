@@ -59,24 +59,38 @@ function drawBun(ctx) {
     if (!bun.alive) {
         ctx.strokeStyle = "red";
         ctx.beginPath();
-        ctx.fillStyle = bun.color;        
+        ctx.fillStyle = bun.color;
         ctx.moveTo(10, 10);
         ctx.lineTo(110, 110);
         ctx.moveTo(10, 110);
         ctx.lineTo(110, 10);
-        ctx.lineWidth = 10;      
+        ctx.lineWidth = 10;
         ctx.stroke();
     }
 }
 
 //Fills out form for bunny
 function drawStats(ctx) {
-    ctx.fillStyle = "black"
+    //capitalize color
+    let color = currentBun.color.charAt(0).toUpperCase() + currentBun.color.slice(1)
+
+    ctx.fillStyle = "black";
     ctx.fillText("Age: " + Math.round(currentBun.age), 130, 50);
     ctx.fillText("Sex: " + getSex(currentBun.sex), 130, 80);
     ctx.fillText("Genes: " + getGenes(currentBun.genes), 130, 110);
     ctx.fillText("Health: " + currentBun.health, 130, 140);
-    ctx.fillText("Color: " + currentBun.color, 130, 170);
+    ctx.fillText("Color: " + color, 130, 170);
+    if (currentBun.alive) {
+        if (currentBun.mated) {
+            ctx.fillText("This bunny is a mother!", 50, 220);
+            ctx.fillText("It got friendly with", 50, 250);
+            ctx.fillText("a " + currentBun.parentColor + " bunny!!", 50, 280);
+            ctx.fillText("How sweet <3", 50, 310);
+        }
+    }else{
+        ctx.fillStyle = "red"
+        ctx.fillText("This bun is dead bro :(", 50, 220);
+    }
 }
 
 function getSex(sex) {
