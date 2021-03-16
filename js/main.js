@@ -1,4 +1,5 @@
 import { bunny } from './bunnies.js';
+import { grass } from './grass.js';
 import { identifierUpdate, identifyBun } from './bunIdentifier.js';
 export { init };
 // #1 - wait for page to load
@@ -11,6 +12,7 @@ let bunbun = new bunny(200, 380, "white", 1, 1, 0, 100, 1, "f", false);
 let color = "white";
 let newBunColor = "white";
 let bunbuns = [bunbun];
+let grass_tiles = [];
 let daytime = "noon";
 const fps = 5;
 
@@ -138,13 +140,25 @@ function clear() {
     ctx.fillRect(0, 300, 300, 100);
     ctx.beginPath();
     ctx.moveTo(0, 350);
-    ctx.bezierCurveTo(300, 150, 300, 500, 750, 300);
+    ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
     ctx.lineWidth = 50;
     ctx.strokeStyle = "rgb(112, 224, 112)";
     ctx.stroke();
 
     ctx.fillStyle = "Green";
     ctx.fillRect(0, 400, 750, 100);
+
+    for(let i = 0; i < 5; i++)
+    {
+        ctx.fillStyle = "Black";
+        ctx.fillRect(0, 400 + i * 20, 750, 2);
+    }
+
+    for(let i = 0; i < 38; i++)
+    {
+        ctx.fillStyle = "Black";
+        ctx.fillRect(i * 20, 400, 3, 300);
+    }
 }
 
 // Draw in all the bunnies
@@ -209,13 +223,6 @@ function getBabies(bun) {
     }
 }
 
-/// Helper function to get random int
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
 function killBun(deadBun) {
     let aliveBuns = [];
     bunbuns.forEach(bunbun => {
@@ -224,6 +231,16 @@ function killBun(deadBun) {
     bunbuns = aliveBuns;
 }
 
+// Used to set up grass tiles at start of the game
+
+/// Helper function to get random int
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+/// Helper funciton to see if canvas was clicked on 
 function canvasClicked(e) {
     //Mouse collider
     let rect = e.target.getBoundingClientRect();

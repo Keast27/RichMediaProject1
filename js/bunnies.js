@@ -1,7 +1,5 @@
 export { bunny };
 
-let n1;
-let n2;
 
 class bunny {
     constructor(x = 0, y = 0, color = "brown", g1 = 1, g2 = 1, hunger = 100, health = 100, age = 0, sex = "f", mated = false) {
@@ -133,8 +131,8 @@ class bunny {
     }
 
     walk() {
-        let strideX = getRandomInt(1, 10);
-        let strideY = getRandomInt(1, 5);
+        let strideX = getRandomInt(1, 20);
+        let strideY = getRandomInt(1, 10);
         if (strideX % 2 == 0) strideX *= -1;
         if (strideY % 2 == 0) strideY *= -1;
 
@@ -193,7 +191,6 @@ class bunny {
             return false;
         }
     }
-
 }
 
 function getInclusiveRandInt(min, max) {
