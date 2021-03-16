@@ -1,4 +1,4 @@
-import { bunny, brownBun, whiteBun, spottedBun } from './bunnies.js';
+import { bunny } from './bunnies.js';
 export { init };
 // #1 - wait for page to load
 
