@@ -133,8 +133,8 @@ class bunny {
     }
 
     walk() {
-        let strideX = getRandomInt(1, 20);
-        let strideY = getRandomInt(1, 10);
+        let strideX = getRandomInt(1, 10);
+        let strideY = getRandomInt(1, 5);
         if (strideX % 2 == 0) strideX *= -1;
         if (strideY % 2 == 0) strideY *= -1;
 
