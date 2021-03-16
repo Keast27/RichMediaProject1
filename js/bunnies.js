@@ -20,19 +20,16 @@ class bunny {
         this.mated = mated;
         let pG = [1, 0];
         this.parentGenes = pG;
+        this.parentColor = "blue";
         this.alive = true;
-
         this.pregTime = 0;
         this.BunBatch = [];
         this.width = 25;
         this.height = 70;
-        n1 = 0;
-        n2 = 0;
     }
 
     createBun() {
-        console.log("bun!!");
-
+       
         //Average litter is seven uhhh let's go with four for now
         for (let i = 0; i < 4; i++) {
             let newGenes = this.setBaby();
@@ -62,38 +59,37 @@ class bunny {
 
     setBaby() {
 
-        let momGenes = this.genes[1] + this.genes[1];
-        let dadGenes = this.parentGenes[1] + this.parentGenes[1];
+        let momGenes = this.genes[0] + this.genes[1];
+        let dadGenes = this.parentGenes[0] + this.parentGenes[1];
         let babyGenes = [5, 5];
         // babyGenes.x1 = 10;
         let mix = momGenes + dadGenes;
 
         //Dom + Hybrid (2 +vs 1)
         if (mix == 3) {
-            let chance = Math.floor(Math.random() * 3) + 1;
+            let chance = getInclusiveRandInt(1, 2);
             if (chance == 1) { let newGenes = [1, 1]; return newGenes; }
             if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
         }
         //Rec vs Hybrid (0 +vs 1)
         if (mix == 1) {
-            let chance = Math.floor(Math.random() * 2) + 1;
+            let chance = getInclusiveRandInt(1, 2);
             if (chance == 1) { let newGenes = [0, 0]; return newGenes; }
             if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
         }
 
         if (mix == 2) {
+            console.log("New mix is " + Math.abs(momGenes - dadGenes));
             //Dom + Rec
             if (Math.abs(momGenes - dadGenes) == 2) {
-                babyGenes.x1 = 10;
-                let chance = Math.floor(Math.random() * 2) + 1;
-                if (chance == 1) { let newGenes = [0, 0]; return newGenes; }
-                if (chance == 2) { let newGenes = [1, 0]; return newGenes; }
+               
+                let newGenes = [1, 0]; return newGenes; 
 
             }
             //Hybrid + Hybrid
-            if (Math.abs(momGenes - dadGenes) = 0) {
-                babyGenes.x1 = 11;
-                let chance = Math.floor(Math.random() * 4) + 1;
+            if (Math.abs(momGenes - dadGenes) == 0) {
+                
+                let chance =  getInclusiveRandInt(1, 4);
                 if (chance % 2 == 0) { let newGenes = [1, 0]; return newGenes; }
                 if (chance == 1) { let newGenes = [1, 1]; return newGenes; }
                 if (chance == 3) { let newGenes = [0, 0]; return newGenes; }
@@ -108,7 +104,7 @@ class bunny {
             let newGenes = [1, 1]; return newGenes;
         }
         console.log(babyGenes);
-        return babyGenes;
+        
     }
 
     checkCollison(bun) {
@@ -121,6 +117,7 @@ class bunny {
                 if (this.sex != bun.sex) {
                     if (this.sex == "f") {
                         this.parentGenes = bun.genes;
+                        this.parentColor = bun.color;
                         this.mated = true;
                         console.log("Sin has been commenced")
                     }
@@ -136,15 +133,6 @@ class bunny {
     }
 
     walk() {
-
-        //Logic to move the bunny every 100 frames
-        /*
-        n1 += 1;
-
-        if (n1 > 25) {
-            n1 = 0;
-*/
-
         let strideX = getRandomInt(1, 20);
         let strideY = getRandomInt(1, 10);
         if (strideX % 2 == 0) strideX *= -1;
@@ -157,7 +145,6 @@ class bunny {
         if (this.x < 50) this.x -= strideX * 2;
         if (this.y > 450) this.y -= strideY * 2;
         if (this.y < 350) this.y -= strideY * 2
-        //    }
     }
 
     lifeHandler() {
@@ -197,26 +184,29 @@ class bunny {
         let height = this.height;
         //Being kind with the collision box
         let buffer = 10;
-        console.log("X range: " + this.x + " " + (this.x + width));
-        console.log("Y range: " + (this.y + 20)+ " " + (this.y + height));
         //get genes
         if ((this.x - buffer < mouseX && this.x + width + buffer > mouseX &&
-            this.y - 25< mouseY && this.y + height - 20 > mouseY)) {
-            console.log("Bun clicked!!");
+            this.y - 25 < mouseY && this.y + height - 20 > mouseY)) {
             return true;
 
-        }else{
-            console.log("Bun not clicked!!")
+        } else {
             return false;
         }
     }
 
 }
 
+function getInclusiveRandInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    let rand =  Math.floor(Math.random() * (max - min + 1) + min)
+    console.log("Rand:" + rand);
+    return rand;
+}
 
 /// Helper function to get random int
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
+
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
 }

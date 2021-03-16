@@ -4,7 +4,9 @@ export { init };
 
 // Field variables
 let ctx;
-let bunbun = new bunny(200, 380, "white", 1, 1, 0, 50, 1, "m", false);
+let ctx2;
+let canvases;
+let bunbun = new bunny(200, 380, "white", 1, 1, 0, 100, 1, "f", false);
 let color = "white";
 let bunbuns = [bunbun];
 let daytime = "noon";
