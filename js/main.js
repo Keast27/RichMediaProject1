@@ -1,5 +1,4 @@
 import { bunny } from './bunnies.js';
-import { identifierUpdate, identifyBun } from './bunIdentifier.js';
 export { init };
 // #1 - wait for page to load
 
@@ -9,15 +8,12 @@ let ctx2;
 let canvases;
 let bunbun = new bunny(200, 380, "white", 1, 1, 0, 100, 1, "f", false);
 let color = "white";
-let newBunColor = "white";
 let bunbuns = [bunbun];
 let daytime = "noon";
 const fps = 5;
 
 function init() {
     console.log("init() called");
-    canvases = document.getElementsByTagName('canvas');
-
 
     // #1-4 draw in scene
     clear();
@@ -27,12 +23,10 @@ function init() {
 
     // #6 Change color according to input
     document.querySelector('#bunnyColorChooser').onchange = function (e) {
-        /*
         for (let i = 0; i < bunbuns.length; i++) {
             bunbuns[i].color = e.target.value;
         }
-        */
-        newBunColor = e.target.value;
+        color = e.target.value;
     };
 
     document.querySelector('#dayTimeChooser').onchange = function (e) {
@@ -47,7 +41,7 @@ function init() {
         let sex;
         if (chance == 1) sex = "f";
         if (chance == 2) sex = "m"
-        addBunBun(getRandomInt(50, 700), getRandomInt(350, 450), newBunColor, 1, 1, 100, 100, 1, sex, false)
+        addBunBun(getRandomInt(50, 700), getRandomInt(350, 450), color, 1, 1, 0, 50, 1, sex, false)
 
         console.log(bunbuns);
     };
@@ -59,19 +53,17 @@ function init() {
 
 // To run every frame
 function update() {
-    setTimeout(update, 1000 / fps);
-    let canvas2 = canvases[1];
-    ctx2 = canvas2.getContext('2d');
-    identifierUpdate(ctx2, canvas2);
+    setTimeout(update,1000/fps);
+   
+
     //Trigger manager function
     for (let i = 0; i < bunbuns.length; i++) {
         bunbuns[i].lifeHandler();
-        if (!bunbuns[i].alive) killBun(bunbuns[i]);
+        if(!bunbuns[i].alive) killBun(bunbuns[i]);
     }
-    canvases[0].onclick = canvasClicked;
 
     checkRomanticLife();
-
+    
     // Clear the screen and draw in the bunnies
     clear();
     drawBunbuns();
@@ -81,7 +73,7 @@ function update() {
 function clear() {
 
     // Bad code, hopefully should change this later
-    let canvas = canvases[0];
+    let canvas = document.querySelector('canvas');
     ctx = canvas.getContext('2d');
 
     // Fill sky in
@@ -125,6 +117,8 @@ function clear() {
     }
 
     //Turn grass into tiles?
+
+
     ctx.fillStyle = "rgb(177, 252, 164)";
     ctx.fillRect(200, 270, 550, 150);
     ctx.beginPath();
@@ -145,6 +139,7 @@ function clear() {
 
     ctx.fillStyle = "Green";
     ctx.fillRect(0, 400, 750, 100);
+
 }
 
 // Draw in all the bunnies
@@ -152,11 +147,11 @@ function drawBunbuns() {
     for (let i = 0; i < bunbuns.length; i++) {
         ctx.fillStyle = bunbuns[i].color;
         ctx.fillRect(bunbuns[i].x, bunbuns[i].y, 25, 50);
-        if (bunbuns[i].mated) {
+        if(bunbuns[i].mated){
             ctx.fillStyle = "pink";
             ctx.fillRect(bunbuns[i].x + 4, bunbuns[i].y + 18, 6, 4);
             ctx.fillRect(bunbuns[i].x + 16, bunbuns[i].y + 18, 6, 4);
-        }
+            }
         ctx.fillStyle = "black";
         ctx.fillRect(bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10);
         ctx.fillRect(bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10);
@@ -172,39 +167,26 @@ function drawBunbuns() {
 /// Add a new bunny to bunbuns 
 function addBunBun(x, y, color, g1, g2, hunger, health, age, sex, mated) {
     let bunbunTemp = new bunny(x, y, color, g1, g2, hunger, health, age, sex, mated);
-    geneBasedOnColor(bunbunTemp);
     bunbuns.push(bunbunTemp);
 
     // Add the health of the bunnies
     document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
 }
 
-function geneBasedOnColor(bun) {
-
-    if (bun.color == "white") {
-        bun.genes = [1, 1];
-    } else if (bun.color == "gray") {
-        bun.genes = [1, 0];
-    } else if (bun.color == "brown") {
-        bun.genes = [0, 0];
-    }
-}
-
-
-function checkRomanticLife() {
+function checkRomanticLife(){
     //Make bunny... Oh... You know
-    for (let i = 0; i < bunbuns.length; i++) {
-        for (let j = 0; j < bunbuns.length; j++) {
+    for(let i = 0; i < bunbuns.length; i++){
+        for(let j = 0; j < bunbuns.length; j++){
             bunbuns[i].checkCollison(bunbuns[j]);
         }
-        //If the bunny is carrying babies, deliver them
-        if (bunbuns[i].BunBatch.length != 0) (getBabies(bunbuns[i]));
+    //If the bunny is carrying babies, deliver them
+        if( bunbuns[i].BunBatch.length != 0)(getBabies(bunbuns[i]));
     }
 }
 
 //Pops and returns babies, adds them to world list.
 function getBabies(bun) {
-    for (let i = 0; i < bun.BunBatch.length; i++) {
+    for(let i = 0; i < bun.BunBatch.length; i++){
         bunbuns.push(bun.BunBatch.shift());
     }
 }
@@ -219,29 +201,9 @@ function getRandomInt(min, max) {
 function killBun(deadBun) {
     let aliveBuns = [];
     bunbuns.forEach(bunbun => {
-        if (bunbun != deadBun) aliveBuns.push(bunbun);
+        if(bunbun != deadBun) aliveBuns.push(bunbun);
     });
     bunbuns = aliveBuns;
-}
-
-function canvasClicked(e) {
-    //Mouse collider
-    let rect = e.target.getBoundingClientRect();
-    let mouseX = e.clientX - rect.x;
-    let mouseY = e.clientY - rect.y;
-    console.log(mouseX, mouseY);
-
-
-    if (bunbuns.length != 0) {
-        for (let i = 0; i < bunbuns.length; i++) {
-            if (bunbuns[i].checkMouseCollision(mouseX, mouseY)) {
-                identifyBun(bunbuns[i]);
-                console.log("This works");
-            }
-        }
-    }
-
-
 }
 
 console.log("In bottom of <script> tag!");
