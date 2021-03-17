@@ -8,7 +8,7 @@ export { init };
 let ctx;
 let ctx2;
 let canvases;
-let bunbun = new bunny(200, 380, "white", 1, 1, 0, 100, 1, "f", false);
+let bunbun = new bunny(200, 380, "white", 1, 1, 100, 100, 1, "f", false);
 let color = "white";
 let newBunColor = "white";
 let bunbuns = [bunbun];
@@ -23,10 +23,7 @@ function init() {
 
     // #1-4 draw in scene
     clear();
-
-    // #5 Health of first bunny
-    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
-
+    
     // #6 Change color according to input
     document.querySelector('#bunnyColorChooser').onchange = function (e) {
         /*
@@ -70,7 +67,7 @@ function update() {
     identifierUpdate(ctx2, canvas2);
     //Trigger manager function
     for (let i = 0; i < bunbuns.length; i++) {
-        bunbuns[i].lifeHandler();
+        bunbuns[i].lifeHandler(grass_tiles);
         if (!bunbuns[i].alive) killBun(bunbuns[i]);
     }
     canvases[0].onclick = canvasClicked;
@@ -290,7 +287,6 @@ function canvasClicked(e) {
         for (let i = 0; i < bunbuns.length; i++) {
             if (bunbuns[i].checkMouseCollision(mouseX, mouseY)) {
                 identifyBun(bunbuns[i]);
-                console.log("This works");
             }
         }
     }

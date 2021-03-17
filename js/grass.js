@@ -1,8 +1,5 @@
 export { grass };
 
-let timer;
-let state;
-let color;
 
 class grass {
     constructor(x = 0, y = 0, width = 0, height = 0){
@@ -21,20 +18,26 @@ class grass {
     // Have left it alone
     regrow()
     {
-        timer += 1;
+        this.timer += 1;
         
-        if(timer > 20 && state < 5) state++;
+        console.log(this.timer);    
+
+        if(this.timer > 50 && this.state < 5) 
+        {
+            this.state++;
+            this.timer = 25;
+        }
     }
 
     // Check to see what state the grass is in and change the color
     // Accordingly 
     stateCheck()
     {
-        if(state == 5) color = "green";
-        if(state == 4) color = "rgb(82, 204, 82)";
-        if(state == 3) color = "rgb(177, 252, 164)";
-        if(state == 2) color = "rgb(112, 224, 112)";
-        if(state == 1) color = "rgb(204, 227, 166)";
-        if(state == 0) color = "rgb(163, 155, 118)";
+        if(this.state == 5) this.color = "green";
+        if(this.state == 4) this.color = "rgb(82, 204, 82)";
+        if(this.state == 3) this.color = "rgb(177, 252, 164)";
+        if(this.state == 2) this.color = "rgb(112, 224, 112)";
+        if(this.state == 1) this.color = "rgb(204, 227, 166)";
+        if(this.state == 0) this.color = "rgb(163, 155, 118)";
     }
 }

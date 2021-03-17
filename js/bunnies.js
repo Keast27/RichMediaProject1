@@ -122,14 +122,32 @@ class bunny {
                 }
             }
         }
-
     }
 
-    eat() {
-        //Look for if food is available, eat
-        // console.log("Nom");
+    // Find out what grass tile the bunny IS colliding with
+    // And return it
+    checkCollisonGrass(grass){
+        let width = this.width / 2;
+        let height = this.height / 2;
+        if (grass.state > 0) {
+            if ((grass.x < this.x + width && grass.x + width > this.x &&
+                grass.y < this.y + height && grass.y + height > this.y)) {
+                return true;
+            }
+        }
     }
 
+    // Give bunnies some health and hunger back from eating the grass
+    // Lower the grass' growth state and set timer to 0
+    eat(grass) {
+        this.hunger += 25;
+        if(this.health < 100) this.health += 10;
+        grass.state-=1;
+        grass.timer = 0;
+    }
+
+    // Randomly walk the bunny in two cardinal directions
+    // Also make sure the bunny doesn't walk out of bounds 
     walk() {
         let strideX = getRandomInt(1, 20);
         let strideY = getRandomInt(1, 10);
@@ -145,22 +163,32 @@ class bunny {
         if (this.y < 350) this.y -= strideY * 2
     }
 
-    lifeHandler() {
+    lifeHandler(grass_tiles) {
         //check to see if bunny is allowed to live :knife:
-        this.hunger--;
+        this.hunger -= 10;
         this.age += 0.05;
 
         this.walk();
 
+        if (this.hunger <= 0){
+            this.hunger = 0; 
+            this.health -= 3;
+        };
 
-        if (this.hunger < 70) {
-            this.eat();
+        // Find out if the bunny is hungry, and if so, have it eat a grass tile
+        // If it can
+        if(this.hunger <= 50){
+            for(let i = 0; i < grass_tiles.length; i++){;
+                if(this.checkCollisonGrass(grass_tiles[i])){
+                    this.eat(grass_tiles[i]);
+                    i = grass_tiles.length;
+                }
+            }
         }
 
-        if (this.hunger <= 0) this.life--;
-
         //on average, rabbits live to 9 years
-        if (this.age > 9 || this.health == 0) {
+        if (this.age > 9 || this.health <= 0) {
+            this.health = 0;
             this.alive = false;
             //If dead remove from draw list
         }
@@ -197,7 +225,6 @@ function getInclusiveRandInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     let rand =  Math.floor(Math.random() * (max - min + 1) + min)
-    console.log("Rand:" + rand);
     return rand;
 }
 

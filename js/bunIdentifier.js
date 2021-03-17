@@ -79,17 +79,18 @@ function drawStats(ctx) {
     ctx.fillText("Sex: " + getSex(currentBun.sex), 130, 80);
     ctx.fillText("Genes: " + getGenes(currentBun.genes), 130, 110);
     ctx.fillText("Health: " + currentBun.health, 130, 140);
-    ctx.fillText("Color: " + color, 130, 170);
+    ctx.fillText("Hunger: " + currentBun.hunger, 130, 170);
+    ctx.fillText("Color: " + color, 130, 220);
     if (currentBun.alive) {
         if (currentBun.mated) {
-            ctx.fillText("This bunny is a mother!", 50, 220);
-            ctx.fillText("It got friendly with", 50, 250);
-            ctx.fillText("a " + currentBun.parentColor + " bunny!!", 50, 280);
-            ctx.fillText("How sweet <3", 50, 310);
+            ctx.fillText("This bunny is a mother!", 50, 250);
+            ctx.fillText("It got friendly with", 50, 280);
+            ctx.fillText("a " + currentBun.parentColor + " bunny!!", 50, 310);
+            ctx.fillText("How sweet <3", 50, 340);
         }
     }else{
         ctx.fillStyle = "red"
-        ctx.fillText("This bun is dead bro :(", 50, 220);
+        ctx.fillText("This bun is dead bro :(", 50, 250);
     }
 }
 
