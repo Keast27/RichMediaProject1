@@ -54,6 +54,9 @@ function init() {
         console.log(bunbuns);
     };
 
+    // Get grass tiles set up
+    grassSetUp();
+
     console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
     // #8 Call update
     update();
@@ -145,8 +148,11 @@ function clear() {
     ctx.strokeStyle = "rgb(112, 224, 112)";
     ctx.stroke();
 
-    ctx.fillStyle = "Green";
-    ctx.fillRect(0, 400, 750, 100);
+    for(let i = 0; i < grass_tiles.length; i++)
+    {
+        ctx.fillStyle = grass_tiles[i].color;
+        ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
+    }
 
     for(let i = 0; i < 5; i++)
     {
@@ -232,6 +238,18 @@ function killBun(deadBun) {
 }
 
 // Used to set up grass tiles at start of the game
+function grassSetUp()
+{
+    for(let i = 0; i < 38; i++)
+    {
+        for(let j = 0; j < 5; j++)
+        {
+            let tempGrass = new grass(i * 20, 400 + j * 20, 20, 20);
+            grass_tiles.push(tempGrass);
+        }
+    }
+}
+
 
 /// Helper function to get random int
 function getRandomInt(min, max) {
@@ -257,8 +275,6 @@ function canvasClicked(e) {
             }
         }
     }
-
-
 }
 
 console.log("In bottom of <script> tag!");
