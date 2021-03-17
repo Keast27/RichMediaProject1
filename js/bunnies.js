@@ -39,9 +39,6 @@ class bunny {
             let babyBun = new bunny(this.x + 10, this.y, undefined, newGenes[0], newGenes[1], undefined, undefined, 0, sex);
             this.setColor(babyBun);
             this.BunBatch.push(babyBun);
-
-            console.log("Baby Genes:" + newGenes);
-
         }
     }
 
@@ -81,7 +78,6 @@ class bunny {
         }
 
         if (mix == 2) {
-            console.log("New mix is " + Math.abs(momGenes - dadGenes));
             //Dom + Rec
             if (Math.abs(momGenes - dadGenes) == 2) {
                
@@ -120,7 +116,6 @@ class bunny {
                     this.parentGenes = bun.genes;
                     this.parentColor = bun.color;
                     this.mated = true;
-                    console.log("Sin has been commenced")
                 }
             }
         }

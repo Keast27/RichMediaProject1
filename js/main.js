@@ -346,8 +346,6 @@ function canvasClicked(e) {
     let rect = e.target.getBoundingClientRect();
     let mouseX = e.clientX - rect.x;
     let mouseY = e.clientY - rect.y;
-    console.log(mouseX, mouseY);
-
 
     if (bunbuns.length != 0) {
         for (let i = 0; i < bunbuns.length; i++) {
@@ -360,7 +358,6 @@ function canvasClicked(e) {
 
 // Kill some bunnies
 function huntBuns() {
-    console.log("Kill " + bunPopCntrl);
     for (let i = 0; i < 7; i++) {
         if(bunPopCntrl == "rand"){
             bunbuns[i].alive = false;
