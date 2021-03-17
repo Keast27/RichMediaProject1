@@ -15,6 +15,7 @@ let newBunColor = "white";
 let bunbuns = [bunbun];
 let grass_tiles = [];
 let daytime = "noon";
+let timer = 0;
 let fps = 200;
 let bunPopCntrl = "rand";
 function init() {
@@ -83,6 +84,9 @@ function update() {
 
     //Run grass update helper function
     grassUpdate();
+
+    // Change time of day automatically
+    daytimeUpdate();
 
     // Clear the screen and draw in the bunnies
     clear();
@@ -318,6 +322,16 @@ function grassSetUp() {
     }
 }
 
+// Used to change the time of the day automatically
+function daytimeUpdate(){
+    timer += 1;
+    
+    if(timer > 150 && daytime == "noon") daytime = "sunset";
+    else if(timer > 75 && daytime == "sunset") daytime = "night";
+    else if(timer > 150 && daytime == "night") daytime = "noon";
+
+    if(timer > 150) timer = 0;
+}
 
 /// Helper function to get random int
 function getRandomInt(min, max) {
