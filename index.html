@@ -9,21 +9,20 @@
 </head>
 
 <body>
+    <!-- First canvas -->
     <canvas width="750" height="500">
         Get a browser that supports Canvas!
-        <!-- The user will only see the above text if their browser is older and doesn't support <canvas> -->
-
     </canvas>
 
+    <!-- Second canvas -->
     <canvas width="450" height="500">
         Get a browser that supports Canvas!
-        <!-- The user will only see the above text if their browser is older and doesn't support <canvas> -->
-
     </canvas>
     <script src="js/init.js" type="module"></script>
 
     <br>
 
+    <!-- Button to spawn bunnies -->
     <button id="spawn">Spawn Bunny</button>
     <label>New Bunny Color:
         <select id="bunnyColorChooser">
@@ -33,42 +32,61 @@
         </select>
     </label>
 
-    <label>Time of Day:
-        <select id="dayTimeChooser">
-            <option value="noon" selected>Noon</option>
-            <option value="sunset">Sunset</option>
-            <option value="night">Night</option>
-        </select>
-    </label>
+    <br>
 
-    <div class = murderChoice>
-    <button id="hunt">HuNT BuN</button>
+    <div class=day_frames>
+        <!-- Button to change background in game -->
+        <label>Time of Day:
+            <select id="dayTimeChooser">
+                <option value="noon" selected>Noon</option>
+                <option value="sunset">Sunset</option>
+                <option value="night">Night</option>
+            </select>
+        </label>
+    
+        <!-- Button to change the frames per second -->
+        <label>Frames Per Second
+            <select id="framesChooser">
+                <option value="200" selected>200</option>
+                <option value="100">100</option>
+                <option value="50">50</option>
+                <option value="10">10</option>
+                <option value="5">5</option>
+                <option value="1">1</option>
+            </select>
+        </label>
+    </div>
+    
+    <!-- Button to kill bunnies -->
+    <div class=murderChoice>
+        <button id="hunt">HuNT BuN</button>
         <p>Choose your victims to tame the masses</p>
-        </div>
+    </div>
 
-        <div class = "radio">
+    <div class="radio">
         <input type="radio" id="Random Buns" name="hitlist" value="rand" checked>
         <label for="rand">Random Buns</label>
-  
+
         <input type="radio" id="White Buns" name="hitlist" value="white">
         <label for="white">White Buns</label>
- 
+
         <input type="radio" id="Gray Buns" name="hitlist" value="gray">
         <label for="gray">Gray Buns</label>
 
         <input type="radio" id="Brown Buns" name="hitlist" value="brown">
         <label for="brown">Brown Buns</label>
     </div>
-    
-   <div class ="help">
-    <p>Welcome to our lil Bun Sim! Add new buns with that fancy shmancy spawn button! Change what bunny you're spawning with the drop down. Tired of light theme? Change the time of day with the drop down!</p>
 
-    <p>Curious about one of the little buns? Click them with your mouse! If the bunnies out eat the grass, they might starve. But that's fine! Don't worry about it!</p>
-    
-  
-</div>
-<p>Too many buns? Hunt them.</p>
-</div>
+    <!-- Explination of what the game is -->
+    <div class="help">
+        <p>Welcome to our lil Bun Sim! Add new buns with that fancy shmancy spawn button! Change what bunny you're
+            spawning with the drop down. Tired of light theme? Change the time of day with the drop down!</p>
+
+        <p>Curious about one of the little buns? Click them with your mouse! If the bunnies out eat the grass, they
+            might starve. But that's fine! Don't worry about it!</p>
+    </div>
+    <p>Too many buns? Hunt them.</p>
+    </div>
 </body>
 
 </html>

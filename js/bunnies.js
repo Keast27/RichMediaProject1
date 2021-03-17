@@ -2,6 +2,7 @@ export { bunny };
 
 
 class bunny {
+    // Constructor for the bunny
     constructor(x = 0, y = 0, color = "brown", g1 = 1, g2 = 1, hunger = 100, health = 100, age = 0, sex = "f", mated = false) {
         //Location
         this.x = x;
@@ -26,8 +27,8 @@ class bunny {
         this.height = 70;
     }
 
+    // Create a new bunny when they are born
     createBun() {
-       
         //Average litter is seven uhhh let's go with four for now
         for (let i = 0; i < 4; i++) {
             let newGenes = this.setBaby();
@@ -44,6 +45,8 @@ class bunny {
         }
     }
 
+    // Set the color or "breed" of the bunny
+    // This is used for main.js
     setColor(baby) {
         let determinet = baby.genes[0] + baby.genes[1];
         if (determinet == 2) {
@@ -55,12 +58,13 @@ class bunny {
         }
     }
 
+    // Logic to set up twhich genes the baby will have
+    // So we can properly change the breed and print it out
     setBaby() {
 
         let momGenes = this.genes[0] + this.genes[1];
         let dadGenes = this.parentGenes[0] + this.parentGenes[1];
         let babyGenes = [5, 5];
-        // babyGenes.x1 = 10;
         let mix = momGenes + dadGenes;
 
         //Dom + Hybrid (2 +vs 1)
@@ -101,24 +105,22 @@ class bunny {
         if (mix == 4) {
             let newGenes = [1, 1]; return newGenes;
         }
-        console.log(babyGenes);
-        
     }
 
+    // See if the bunny is colliding with another bunny
+    // And if so, breed 
     checkCollison(bun) {
         let width = this.width;
         let height = this.height;
-        if (!this.mated && this.age > 1) {
-            //get genes
-            if ((bun.x < this.x + width && bun.x + width > this.x &&
-                bun.y < this.y + height && bun.y + height > this.y)) {
-                if (this.sex != bun.sex) {
-                    if (this.sex == "f") {
-                        this.parentGenes = bun.genes;
-                        this.parentColor = bun.color;
-                        this.mated = true;
-                        console.log("Sin has been commenced")
-                    }
+        //get genes
+        if ((bun.x < this.x + width && bun.x + width > this.x &&
+            bun.y < this.y + height && bun.y + height > this.y)) {
+            if (this.sex != bun.sex) {
+                if (this.sex == "f") {
+                    this.parentGenes = bun.genes;
+                    this.parentColor = bun.color;
+                    this.mated = true;
+                    console.log("Sin has been commenced")
                 }
             }
         }
@@ -157,29 +159,34 @@ class bunny {
         this.x += strideX;
         this.y += strideY;
 
-        if (this.x > 700) this.x -= strideX * 2;
-        if (this.x < 50) this.x -= strideX * 2;
+        // Make sure the bunny doesn't walk off the ground
+        if (this.x > 740) this.x -= strideX * 2;
+        if (this.x < -15) this.x -= strideX * 2;
         if (this.y > 450) this.y -= strideY * 2;
         if (this.y < 350) this.y -= strideY * 2
     }
 
+    // Logic for the bunny each frame, more commments in method because there's a lot
     lifeHandler(grass_tiles) {
-        //check to see if bunny is allowed to live :knife:
+        // Lower health and increase age
         this.hunger -= 10;
         this.age += 0.05;
 
+        // Have bunny walk around
         this.walk();
 
+        // If the bunny's hunger is at zero, start losing health
         if (this.hunger <= 0){
             this.hunger = 0; 
             this.health -= 3;
         };
 
-        // Find out if the bunny is hungry, and if so, have it eat a grass tile
-        // If it can
+        // Find out if the bunny is hungry
         if(this.hunger <= 50){
+            // Go through all grass tiles and see which the bunny is colliding with
             for(let i = 0; i < grass_tiles.length; i++){;
                 if(this.checkCollisonGrass(grass_tiles[i])){
+                    // Eat the grass tiles and force quit out of the loop
                     this.eat(grass_tiles[i]);
                     i = grass_tiles.length;
                 }
@@ -205,6 +212,7 @@ class bunny {
         }
     }
 
+    // Helper method to get the mous collision 
     checkMouseCollision(mouseX, mouseY) {
         let width = this.width;
         let height = this.height;
@@ -221,11 +229,12 @@ class bunny {
     }
 }
 
+// Helper method to get a random number
 function getInclusiveRandInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    let rand =  Math.floor(Math.random() * (max - min + 1) + min)
-    return rand;
+    let rng =  Math.floor(Math.random() * (max - min + 1) + min)
+    return rng;
 }
 
 /// Helper function to get random int
