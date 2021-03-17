@@ -15,7 +15,7 @@ let bunbuns = [bunbun];
 let grass_tiles = [];
 let daytime = "noon";
 const fps = 5;
-
+let bunPopCntrl = "rand";
 function init() {
     console.log("init() called");
     canvases = document.getElementsByTagName('canvas');
@@ -23,15 +23,18 @@ function init() {
 
     // #1-4 draw in scene
     clear();
-    
+
     // #6 Change color according to input
     document.querySelector('#bunnyColorChooser').onchange = function (e) {
-        /*
-        for (let i = 0; i < bunbuns.length; i++) {
-            bunbuns[i].color = e.target.value;
-        }
-        */
         newBunColor = e.target.value;
+    };
+    document.querySelector('#hunt').onclick = function () {
+        var types = document.getElementsByName('hitlist');
+
+        for (let i = 0; i < types.length; i++) {
+            if (types[i].checked) bunPopCntrl = types[i].value;
+        }
+        huntBuns();
     };
 
     document.querySelector('#dayTimeChooser').onchange = function (e) {
@@ -53,9 +56,7 @@ function init() {
 
     // Get grass tiles set up
     grassSetUp();
-
-    console.log("The next folowing lines show what happens to a litter when we cross a dominant trait bunny with a recessive trait one");
-    // #8 Call update
+ // #8 Call update
     update();
 }
 
@@ -80,6 +81,7 @@ function update() {
     // Clear the screen and draw in the bunnies
     clear();
     drawBunbuns();
+
 }
 
 /// Clear the screen to original state
@@ -153,21 +155,18 @@ function clear() {
 
 
     // Draw in all the grass tiles w/proper color 
-    for(let i = 0; i < grass_tiles.length; i++)
-    {
+    for (let i = 0; i < grass_tiles.length; i++) {
         ctx.fillStyle = grass_tiles[i].color;
         ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
     }
 
     // Draw the grass borders 
-    for(let i = 0; i < 5; i++)
-    {
+    for (let i = 0; i < 5; i++) {
         ctx.fillStyle = "Black";
         ctx.fillRect(0, 400 + i * 20, 750, 2);
     }
 
-    for(let i = 0; i < 38; i++)
-    {
+    for (let i = 0; i < 38; i++) {
         ctx.fillStyle = "Black";
         ctx.fillRect(i * 20, 400, 3, 300);
     }
@@ -244,22 +243,17 @@ function killBun(deadBun) {
 }
 
 // Run the grass logic each update
-function grassUpdate()
-{
-    for(let i = 0; i < grass_tiles.length; i++)
-    {
+function grassUpdate() {
+    for (let i = 0; i < grass_tiles.length; i++) {
         grass_tiles[i].regrow();
         grass_tiles[i].stateCheck();
     }
 }
 
 // Used to set up grass tiles at start of the game
-function grassSetUp()
-{
-    for(let i = 0; i < 38; i++)
-    {
-        for(let j = 0; j < 5; j++)
-        {
+function grassSetUp() {
+    for (let i = 0; i < 38; i++) {
+        for (let j = 0; j < 5; j++) {
             let tempGrass = new grass(i * 20, 400 + j * 20, 20, 20);
             grass_tiles.push(tempGrass);
         }
@@ -292,4 +286,16 @@ function canvasClicked(e) {
     }
 }
 
-console.log("In bottom of <script> tag!");
+function huntBuns() {
+    console.log("Kill " + bunPopCntrl);
+    for (let i = 0; i < 7; i++) {
+        if(bunPopCntrl == "rand"){
+            bunbuns[i].alive = false;
+            killBun(bunbuns[i]);
+        }
+        else if(bunbuns[i].color == bunPopCntrl){
+            bunbuns[i].alive = false;
+            killBun(bunbuns[i]);
+        }
+    }
+}

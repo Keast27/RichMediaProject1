@@ -20,7 +20,7 @@ class grass {
     {
         this.timer += 1;
         
-        console.log(this.timer);    
+        //console.log(this.timer);    
 
         if(this.timer > 50 && this.state < 5) 
         {

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Raleway&display=swap');
+
+button {
+    background-color: #80c582e7; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Fredoka One', cursive;
+    font-size: 20px;
+  }
+  
+  label {
+    border: none;
+    color: skyblue;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Fredoka One', cursive;
+    font-size: 25px;
+  }
+  
+  select {
+    border-width: 4px;  
+    border-style:dotted;
+    font-weight: bold;
+    color: skyblue;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Raleway', cursive;
+    font-size: 25px;
+  }
+
+  .murderChoice{
+      float:left;
+    
+      font-family: 'Raleway', cursive;
+  }
+  .radio{
+      float: left;
+      margin-top: -1%;
+  }
+
+ .murderChoice p {
+     margin-left: 10px;
+    font-size: 25px;
+    overflow: hidden;
+    float: right;
+  }
+  
+ 
+  .murderChoice{
+      float:left;
+    
+     
+  }
+  .radio{
+      float: left;
+      margin-top: -1%;
+  }
+
+ .murderChoice p {
+     margin-left: 10px;
+    font-size: 25px;
+    overflow: hidden;
+    float: right;
+  }
+
+  p{
+    margin-left: 10px;
+    font-size: 25px;
+    overflow: hidden;
+    float: left;
+    margin-top: 0px;
+    font-family: 'Raleway', cursive;
+  }
+
+  .help {
+    border-width: 4px;  
+    color: #80c582e7;
+  }
+
+
+  

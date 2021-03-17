@@ -7,8 +7,7 @@ function identifierUpdate(ctx, canvas) {
     ctx.fillStyle = "tan";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "30px Arial";
-
-
+  
     bunPortrait(ctx);
 }
 
@@ -73,14 +72,14 @@ function drawBun(ctx) {
 function drawStats(ctx) {
     //capitalize color
     let color = currentBun.color.charAt(0).toUpperCase() + currentBun.color.slice(1)
-
+   
     ctx.fillStyle = "black";
     ctx.fillText("Age: " + Math.round(currentBun.age), 130, 50);
     ctx.fillText("Sex: " + getSex(currentBun.sex), 130, 80);
     ctx.fillText("Genes: " + getGenes(currentBun.genes), 130, 110);
     ctx.fillText("Health: " + currentBun.health, 130, 140);
     ctx.fillText("Hunger: " + currentBun.hunger, 130, 170);
-    ctx.fillText("Color: " + color, 130, 220);
+    ctx.fillText("Color: " + color, 130, 200);
     if (currentBun.alive) {
         if (currentBun.mated) {
             ctx.fillText("This bunny is a mother!", 50, 250);
