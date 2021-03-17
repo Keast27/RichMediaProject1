@@ -77,6 +77,9 @@ function update() {
 
     checkRomanticLife();
 
+    //Run grass update helper function
+    grassUpdate();
+
     // Clear the screen and draw in the bunnies
     clear();
     drawBunbuns();
@@ -89,7 +92,7 @@ function clear() {
     let canvas = canvases[0];
     ctx = canvas.getContext('2d');
 
-    // Fill sky in
+    // Draw the noon background
     if (daytime == "noon") {
         ctx.fillStyle = "Skyblue";
         ctx.fillRect(0, 0, canvas.width, 500);
@@ -103,6 +106,7 @@ function clear() {
         ctx.fillRect(580, 110, 40, 40);
         ctx.fillRect(565, 125, 65, 20);
     }
+    // Draw in the sunset background
     else if (daytime == "sunset") {
         ctx.fillStyle = "#cd9acb";
         ctx.fillRect(0, 0, canvas.width, 100);
@@ -111,6 +115,7 @@ function clear() {
         ctx.fillStyle = "#fa9621";
         ctx.fillRect(0, 200, canvas.width, 100);
     }
+    // Draw in the night time background
     else if (daytime == "night") {
         ctx.fillStyle = "black";
         ctx.fillRect(0, 0, canvas.width, 500);
@@ -129,7 +134,7 @@ function clear() {
         ctx.fillRect(630, 50, 15, 15);
     }
 
-    //Turn grass into tiles?
+    // Hillside number 2
     ctx.fillStyle = "rgb(177, 252, 164)";
     ctx.fillRect(200, 270, 550, 150);
     ctx.beginPath();
@@ -137,6 +142,7 @@ function clear() {
     ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
     ctx.stroke();
 
+    // Hillside number 1
     ctx.fillStyle = "rgb(112, 224, 112)";
     ctx.fillRect(0, 335, 750, 70);
     ctx.fillStyle = "rgb(112, 224, 112)";
@@ -148,12 +154,15 @@ function clear() {
     ctx.strokeStyle = "rgb(112, 224, 112)";
     ctx.stroke();
 
+
+    // Draw in all the grass tiles w/proper color 
     for(let i = 0; i < grass_tiles.length; i++)
     {
         ctx.fillStyle = grass_tiles[i].color;
         ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
     }
 
+    // Draw the grass borders 
     for(let i = 0; i < 5; i++)
     {
         ctx.fillStyle = "Black";
@@ -235,6 +244,16 @@ function killBun(deadBun) {
         if (bunbun != deadBun) aliveBuns.push(bunbun);
     });
     bunbuns = aliveBuns;
+}
+
+// Run the grass logic each update
+function grassUpdate()
+{
+    for(let i = 0; i < grass_tiles.length; i++)
+    {
+        grass_tiles[i].regrow();
+        grass_tiles[i].stateCheck();
+    }
 }
 
 // Used to set up grass tiles at start of the game

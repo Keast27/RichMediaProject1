@@ -26,7 +26,9 @@ class grass {
         if(timer > 20 && state < 5) state++;
     }
 
-    state()
+    // Check to see what state the grass is in and change the color
+    // Accordingly 
+    stateCheck()
     {
         if(state == 5) color = "green";
         if(state == 4) color = "rgb(82, 204, 82)";
