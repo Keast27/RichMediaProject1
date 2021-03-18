@@ -1,4 +1,4 @@
-import {  getInclusiveRandInt, getRandomInt } from './utils.js';
+import { getInclusiveRandInt, getRandomInt } from './utils.js';
 export { bunny };
 
 

@@ -1,6 +1,7 @@
 import { bunny } from './bunnies.js';
 import { grass } from './grass.js';
 import { identifierUpdate, identifyBun } from './bunIdentifier.js';
+import { getRandomInt } from './utils.js';
 export { init };
 // #1 - wait for page to load
 
@@ -19,7 +20,6 @@ let timer = 0;
 let fps = 200;
 let bunPopCntrl = "rand";
 function init() {
-    console.log("init() called");
     canvases = document.getElementsByTagName('canvas');
 
 
@@ -333,12 +333,6 @@ function daytimeUpdate(){
     if(timer > 150) timer = 0;
 }
 
-/// Helper function to get random int
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
 
 /// Helper funciton to see if canvas was clicked on 
 function canvasClicked(e) {
