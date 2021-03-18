@@ -106,7 +106,9 @@ function clear() {
     if (daytime == "noon") {
         ctx.save();
         drawRect(ctx, 0, 0, canvas.width, 500, "Skyblue");
-
+        
+        ctx.closePath();
+        
         ctx.fillStyle = "yellow";
         ctx.arc(150, 75, 50, 0, 2 * Math.PI);
         ctx.fill();
@@ -156,7 +158,6 @@ function clear() {
     ctx.beginPath();
     ctx.strokeStyle = "rgb(177, 252, 164)";
     ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
-    ctx.closePath();
     ctx.stroke();
 
 
@@ -191,7 +192,6 @@ function clear() {
     ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
     ctx.lineWidth = 50;
     ctx.strokeStyle = "rgb(112, 224, 112)";
-    ctx.closePath();
     ctx.stroke();
 
     if (daytime == "sunset") {
