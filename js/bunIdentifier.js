@@ -1,4 +1,5 @@
 export { identifierUpdate, identifyBun };
+import { drawRect } from './utils.js';
 
 let currentBun = null;
 
@@ -18,10 +19,9 @@ function identifyBun(bun) {
 
 //Makes the picture based on bunny's stats
 function bunPortrait(ctx) {
-    ctx.fillStyle = "white";
-    ctx.fillRect(10, 10, 100, 100);
-    ctx.fillStyle = "skyblue";
-    ctx.fillRect(15, 15, 90, 90);
+
+    drawRect(ctx,10, 10, 100, 100, "white");
+    drawRect(ctx,15, 15, 90, 90, "skyblue");
 
     if (currentBun != null) {
         drawBun(ctx);
@@ -37,23 +37,21 @@ function bunPortrait(ctx) {
 //Draws the bunny based on stats
 function drawBun(ctx) {
     let bun = currentBun;
-    //if(bun.color == "white"){
-    ctx.fillStyle = bun.color;
-    ctx.fillRect(28, 40, 60, 65);
-    ctx.fillRect(35, 40, 15, -25);
-    ctx.fillRect(60, 40, 15, -25);
-    ctx.fillStyle = "pink";
-    ctx.fillRect(40, 40, 7, -20);
-    ctx.fillRect(65, 40, 7, -20);
-
+    //head
+    drawRect(ctx, 28, 40, 60, 65, bun.color);
+    drawRect(ctx, 35, 40, 15, -25, bun.color);
+    drawRect(ctx, 60, 40, 15, -25, bun.color);
+    //ears
+    drawRect(ctx, 40, 40, 7, -20, "pink");
+    drawRect(ctx, 65, 40, 7, -20, "pink");
+    //blush
     if (bun.mated) {
-        ctx.fillRect(36, 63, 15, 15);
-        ctx.fillRect(69, 63, 15, 15);
+        ctx.fillRect(36, 63, 15, 15, "pink");
+        ctx.fillRect(69, 63, 15, 15, "pink");
     }
-
-    ctx.fillStyle = "black";
-    ctx.fillRect(44, 70, 7, -20);
-    ctx.fillRect(69, 70, 7, -20);
+    //eyes
+    drawRect(ctx,44, 70, 7, -20, "black");
+    drawRect(ctx,69, 70, 7, -20, "black");
 
     if (!bun.alive) {
         ctx.strokeStyle = "red";

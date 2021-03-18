@@ -1,7 +1,7 @@
 import { bunny } from './bunnies.js';
 import { grass } from './grass.js';
-import { identifierUpdate, identifyBun } from './bunIdentifier.js';
-import { getRandomInt } from './utils.js';
+import { identifierUpdate, identifyBun } from './BunIdentifier.js';
+import { getRandomInt, drawRect } from './utils.js';
 export { init };
 // #1 - wait for page to load
 
@@ -20,7 +20,7 @@ let timer = 0;
 let fps = 200;
 let bunPopCntrl = "rand";
 function init() {
-    canvases = document.getElementsByTagName('canvas');
+    canvases = document.querySelectorAll('canvas');
 
 
     // #1-4 draw in scene
@@ -33,7 +33,7 @@ function init() {
 
     // # 6 Kill bunnies if choosen to 
     document.querySelector('#hunt').onclick = function () {
-        var types = document.getElementsByName('hitlist');
+        let types = document.getElementsByName('hitlist');
 
         for (let i = 0; i < types.length; i++) {
             if (types[i].checked) bunPopCntrl = types[i].value;
@@ -63,7 +63,7 @@ function init() {
 
     // #10 Get grass tiles set up
     grassSetUp();
-    
+
     // #11 Enter Update loop
     update();
 }
@@ -104,47 +104,50 @@ function clear() {
 
     // Draw the noon background
     if (daytime == "noon") {
-        ctx.fillStyle = "Skyblue";
-        ctx.fillRect(0, 0, canvas.width, 500);
+        ctx.save();
+        drawRect(ctx, 0, 0, canvas.width, 500, "Skyblue");
 
-        ctx.fillStyle = "Yellow";
-        ctx.arc
-
+        ctx.fillStyle = "yellow";
+        ctx.arc(150, 75, 50, 0, 2 * Math.PI);
+        ctx.fill();
+        
         ctx.fillStyle = "white"
-        ctx.fillRect(50, 70, 100, 40);
-        ctx.fillRect(110, 40, 40, 40);
-        ctx.fillRect(85, 55, 30, 20);
+        drawRect(ctx, 50, 70, 100, 40, "white");
+        drawRect(ctx, 110, 40, 40, 40, "white");
+        drawRect(ctx, 85, 55, 30, 20, "white");
+      
 
-        ctx.fillRect(550, 140, 100, 40);
-        ctx.fillRect(580, 110, 40, 40);
-        ctx.fillRect(565, 125, 65, 20);
+        drawRect(ctx, 550, 140, 100, 40, "white");
+        drawRect(ctx, 580, 110, 40, 40, "white");
+        drawRect(ctx, 565, 125, 65, 20, "white");
+        ctx.restore();
+        
     }
     // Draw in the sunset background
     else if (daytime == "sunset") {
-        ctx.fillStyle = "#cd9acb";
-        ctx.fillRect(0, 0, canvas.width, 100);
-        ctx.fillStyle = "#d4ac94";
-        ctx.fillRect(0, 100, canvas.width, 100);
-        ctx.fillStyle = "#fa9621";
-        ctx.fillRect(0, 200, canvas.width, 100);
+        ctx.save();
+        drawRect(ctx, 0, 0, canvas.width, 100, "#cd9acb");
+        drawRect(ctx,0, 100, canvas.width, 100,"#d4ac94");
+        drawRect(ctx, 0, 200, canvas.width, 100, "#fa9621");
+        ctx.restore();
     }
     // Draw in the night time background
     else if (daytime == "night") {
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, 500);
+       
+        drawRect(ctx,0, 0, canvas.width, 500, "black");
 
-        ctx.fillStyle = "white"
-        ctx.fillRect(50, 70, 10, 40);
-        ctx.fillRect(35, 85, 40, 10);
-        ctx.fillRect(150, 170, 10, 40);
-        ctx.fillRect(135, 185, 40, 10);
-        ctx.fillRect(320, 40, 10, 40);
-        ctx.fillRect(305, 55, 40, 10);
-        ctx.fillRect(550, 90, 10, 40);
-        ctx.fillRect(535, 105, 40, 10);
-        ctx.fillRect(600, 40, 50, 50);
-        ctx.fillStyle = "gray";
-        ctx.fillRect(630, 50, 15, 15);
+    
+        drawRect(ctx, 50, 70, 10, 40, "white");
+        drawRect(ctx, 35, 85, 40, 10, "white");
+        drawRect(ctx, 150, 170, 10, 40, "white");
+        drawRect(ctx, 135, 185, 40, 10, "white");
+        drawRect(ctx, 320, 40, 10, 40, "white");
+        drawRect(ctx, 305, 55, 40, 10, "white");
+        drawRect(ctx, 550, 90, 10, 40, "white");
+        drawRect(ctx, 535, 105, 40, 10, "white");
+        drawRect(ctx, 600, 40, 50, 50, "white");
+       
+        drawRect(ctx, 630, 50, 15, 15, "gray");
     }
 
     // Hillside number 2
@@ -153,26 +156,32 @@ function clear() {
     ctx.beginPath();
     ctx.strokeStyle = "rgb(177, 252, 164)";
     ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+    ctx.closePath();
     ctx.stroke();
 
-    if(daytime=="sunset"){
+
+    if (daytime == "sunset") {
         ctx.fillStyle = "#c0e889";
         ctx.fillRect(200, 270, 550, 150);
         ctx.beginPath();
         ctx.strokeStyle = "#c0e889";
         ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.closePath();
         ctx.stroke();
     }
-    else if(daytime=="night"){
+    else if (daytime == "night") {
         ctx.fillStyle = "#6a9863";
         ctx.fillRect(200, 270, 550, 150);
         ctx.beginPath();
         ctx.strokeStyle = "#6a9863";
         ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.closePath();
         ctx.stroke();
     }
 
     // Hillside number 1
+
+   
     ctx.fillStyle = "rgb(112, 224, 112)";
     ctx.fillRect(0, 335, 750, 70);
     ctx.fillStyle = "rgb(112, 224, 112)";
@@ -182,6 +191,7 @@ function clear() {
     ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
     ctx.lineWidth = 50;
     ctx.strokeStyle = "rgb(112, 224, 112)";
+    ctx.closePath();
     ctx.stroke();
 
     if (daytime == "sunset") {
@@ -194,9 +204,10 @@ function clear() {
         ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
         ctx.lineWidth = 50;
         ctx.strokeStyle = "#9aca58";
+        ctx.closePath();
         ctx.stroke();
     }
-    else if(daytime=="night"){
+    else if (daytime == "night") {
         ctx.fillStyle = "#438743";
         ctx.fillRect(0, 335, 750, 70);
         ctx.fillStyle = "#438743";
@@ -206,6 +217,7 @@ function clear() {
         ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
         ctx.lineWidth = 50;
         ctx.strokeStyle = "#438743";
+        ctx.closePath();
         ctx.stroke();
     }
 
@@ -214,7 +226,7 @@ function clear() {
         ctx.fillStyle = grass_tiles[i].color;
         ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
     }
-    
+
 
     // Draw the grass borders 
     for (let i = 0; i < 5; i++) {
@@ -228,25 +240,38 @@ function clear() {
     }
 }
 
+function drawHill(ctx, color){
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 335, 750, 70);
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 300, 300, 100);
+    ctx.beginPath();
+    ctx.moveTo(0, 350);
+    ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
+    ctx.lineWidth = 50;
+    ctx.strokeStyle = color;
+    ctx.closePath();
+    ctx.stroke();
+}
 // Draw in all the bunnies
 function drawBunbuns() {
     for (let i = 0; i < bunbuns.length; i++) {
-        ctx.fillStyle = bunbuns[i].color;
-        ctx.fillRect(bunbuns[i].x, bunbuns[i].y, 25, 50);
+        ctx.save();
+        drawRect(ctx, bunbuns[i].x, bunbuns[i].y, 25, 50, bunbuns[i].color)
+        //blush
         if (bunbuns[i].mated) {
-            ctx.fillStyle = "pink";
-            ctx.fillRect(bunbuns[i].x + 4, bunbuns[i].y + 18, 6, 4);
-            ctx.fillRect(bunbuns[i].x + 16, bunbuns[i].y + 18, 6, 4);
+            drawRect(ctx, bunbuns[i].x + 4, bunbuns[i].y + 18, 6, 4, "pink")
+            drawRect(ctx, bunbuns[i].x + 16, bunbuns[i].y + 18, 6, 4, "pink")
         }
-        ctx.fillStyle = "black";
-        ctx.fillRect(bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10);
-        ctx.fillRect(bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10);
-        ctx.fillStyle = bunbuns[i].color;
-        ctx.fillRect(bunbuns[i].x + 3, bunbuns[i].y - 15, 7, 20);
-        ctx.fillRect(bunbuns[i].x + 13, bunbuns[i].y - 15, 7, 20);
-        ctx.fillStyle = "pink";
-        ctx.fillRect(bunbuns[i].x + 5, bunbuns[i].y - 10, 4, 10);
-        ctx.fillRect(bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10);
+        //eyes
+        drawRect(ctx, bunbuns[i].x + 7, bunbuns[i].y + 7, 3, 10, "black")
+        drawRect(ctx, bunbuns[i].x + 17, bunbuns[i].y + 7, 3, 10, "black")
+        //ears
+        drawRect(ctx, bunbuns[i].x + 3, bunbuns[i].y - 15, 7, 20, bunbuns[i].color)
+        drawRect(ctx, bunbuns[i].x + 13, bunbuns[i].y - 15, 7, 20, bunbuns[i].color)
+        drawRect(ctx, bunbuns[i].x + 5, bunbuns[i].y - 10, 4, 10, "pink")
+        drawRect(ctx, bunbuns[i].x + 15, bunbuns[i].y - 10, 4, 10, "pink")
+        ctx.restore();
     }
 }
 
@@ -274,9 +299,9 @@ function geneBasedOnColor(bun) {
 // See if any are colliding and have them mate
 function checkRomanticLife() {
     for (let i = 0; i < bunbuns.length; i++) {
-        if (!bunbuns[i].mated && bunbuns[i].age > 1){
+        if (!bunbuns[i].mated && bunbuns[i].age > 1) {
             for (let j = 0; j < bunbuns.length; j++) {
-                if(!bunbuns[j].mated && bunbuns[j].age > 1){
+                if (!bunbuns[j].mated && bunbuns[j].age > 1) {
                     bunbuns[i].checkCollison(bunbuns[j]);
                 }
             }
@@ -321,14 +346,14 @@ function grassSetUp() {
 }
 
 // Used to change the time of the day automatically
-function daytimeUpdate(){
+function daytimeUpdate() {
     timer += 1;
-    
-    if(timer > 150 && daytime == "noon") daytime = "sunset";
-    else if(timer > 75 && daytime == "sunset") daytime = "night";
-    else if(timer > 150 && daytime == "night") daytime = "noon";
 
-    if(timer > 150) timer = 0;
+    if (timer > 150 && daytime == "noon") daytime = "sunset";
+    else if (timer > 75 && daytime == "sunset") daytime = "night";
+    else if (timer > 150 && daytime == "night") daytime = "noon";
+
+    if (timer > 150) timer = 0;
 }
 
 
@@ -351,11 +376,11 @@ function canvasClicked(e) {
 // Kill some bunnies
 function huntBuns() {
     for (let i = 0; i < 7; i++) {
-        if(bunPopCntrl == "rand"){
+        if (bunPopCntrl == "rand") {
             bunbuns[i].alive = false;
             killBun(bunbuns[i]);
         }
-        else if(bunbuns[i].color == bunPopCntrl){
+        else if (bunbuns[i].color == bunPopCntrl) {
             bunbuns[i].alive = false;
             killBun(bunbuns[i]);
         }
