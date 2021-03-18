@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Raleway&display=swap');
 
+/*Referenced w3schools https://www.w3schools.com/css*/
 button {
-    background-color: #80c582e7; /* Green */
+    background-color: #80c582e7; 
     border: none;
+    border-radius: 8px;
     color: white;
     padding: 15px 25px;
     text-align: center;
@@ -10,6 +12,16 @@ button {
     display: inline-block;
     font-family: 'Fredoka One', cursive;
     font-size: 20px;
+  }
+
+  button:hover{
+  background-color: #457447e7; 
+  color: white;
+  }
+
+  .murderChoice button:hover{
+    background-color: #ee0914e7;
+    color: black;
   }
   
   label {

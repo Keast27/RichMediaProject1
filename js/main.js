@@ -106,39 +106,39 @@ function clear() {
     if (daytime == "noon") {
         ctx.save();
         drawRect(ctx, 0, 0, canvas.width, 500, "Skyblue");
-        
+
         ctx.closePath();
-        
+
         ctx.fillStyle = "yellow";
         ctx.arc(150, 75, 50, 0, 2 * Math.PI);
         ctx.fill();
-        
+
         ctx.fillStyle = "white"
         drawRect(ctx, 50, 70, 100, 40, "white");
         drawRect(ctx, 110, 40, 40, 40, "white");
         drawRect(ctx, 85, 55, 30, 20, "white");
-      
+
 
         drawRect(ctx, 550, 140, 100, 40, "white");
         drawRect(ctx, 580, 110, 40, 40, "white");
         drawRect(ctx, 565, 125, 65, 20, "white");
         ctx.restore();
-        
+
     }
     // Draw in the sunset background
     else if (daytime == "sunset") {
         ctx.save();
         drawRect(ctx, 0, 0, canvas.width, 100, "#cd9acb");
-        drawRect(ctx,0, 100, canvas.width, 100,"#d4ac94");
+        drawRect(ctx, 0, 100, canvas.width, 100, "#d4ac94");
         drawRect(ctx, 0, 200, canvas.width, 100, "#fa9621");
         ctx.restore();
     }
     // Draw in the night time background
     else if (daytime == "night") {
-       
-        drawRect(ctx,0, 0, canvas.width, 500, "black");
 
-    
+        drawRect(ctx, 0, 0, canvas.width, 500, "black");
+
+
         drawRect(ctx, 50, 70, 10, 40, "white");
         drawRect(ctx, 35, 85, 40, 10, "white");
         drawRect(ctx, 150, 170, 10, 40, "white");
@@ -148,99 +148,46 @@ function clear() {
         drawRect(ctx, 550, 90, 10, 40, "white");
         drawRect(ctx, 535, 105, 40, 10, "white");
         drawRect(ctx, 600, 40, 50, 50, "white");
-       
+
         drawRect(ctx, 630, 50, 15, 15, "gray");
     }
 
     // Hillside number 2
-    ctx.fillStyle = "rgb(177, 252, 164)";
-    ctx.fillRect(200, 270, 550, 150);
-    ctx.beginPath();
-    ctx.strokeStyle = "rgb(177, 252, 164)";
-    ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
-    ctx.stroke();
-
+    drawHillTwo(ctx, "rgb(177, 252, 164)");
 
     if (daytime == "sunset") {
-        ctx.fillStyle = "#c0e889";
-        ctx.fillRect(200, 270, 550, 150);
-        ctx.beginPath();
-        ctx.strokeStyle = "#c0e889";
-        ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.stroke();
+        drawHillTwo(ctx, "#c0e889");
     }
     else if (daytime == "night") {
-        ctx.fillStyle = "#6a9863";
-        ctx.fillRect(200, 270, 550, 150);
-        ctx.beginPath();
-        ctx.strokeStyle = "#6a9863";
-        ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
-        ctx.closePath();
-        ctx.stroke();
+        drawHillTwo(ctx, "#6a9863");
     }
 
     // Hillside number 1
-
-   
-    ctx.fillStyle = "rgb(112, 224, 112)";
-    ctx.fillRect(0, 335, 750, 70);
-    ctx.fillStyle = "rgb(112, 224, 112)";
-    ctx.fillRect(0, 300, 300, 100);
-    ctx.beginPath();
-    ctx.moveTo(0, 350);
-    ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
-    ctx.lineWidth = 50;
-    ctx.strokeStyle = "rgb(112, 224, 112)";
-    ctx.stroke();
+    drawHillOne(ctx, "rgb(112, 224, 112)");
 
     if (daytime == "sunset") {
-        ctx.fillStyle = "#9aca58";
-        ctx.fillRect(0, 335, 750, 70);
-        ctx.fillStyle = "#9aca58";
-        ctx.fillRect(0, 300, 300, 100);
-        ctx.beginPath();
-        ctx.moveTo(0, 350);
-        ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
-        ctx.lineWidth = 50;
-        ctx.strokeStyle = "#9aca58";
-        ctx.closePath();
-        ctx.stroke();
+        drawHillOne(ctx, "#9aca58");
     }
     else if (daytime == "night") {
-        ctx.fillStyle = "#438743";
-        ctx.fillRect(0, 335, 750, 70);
-        ctx.fillStyle = "#438743";
-        ctx.fillRect(0, 300, 300, 100);
-        ctx.beginPath();
-        ctx.moveTo(0, 350);
-        ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
-        ctx.lineWidth = 50;
-        ctx.strokeStyle = "#438743";
-        ctx.closePath();
-        ctx.stroke();
+        drawHillOne(ctx, "#438743");
     }
 
     // Draw in all the grass tiles w/proper color 
     for (let i = 0; i < grass_tiles.length; i++) {
-        ctx.fillStyle = grass_tiles[i].color;
-        ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
+        drawRect(ctx, grass_tiles[i].x, grass_tiles[i].y, 20, 20, grass_tiles[i].color);
     }
-
 
     // Draw the grass borders 
     for (let i = 0; i < 5; i++) {
-        ctx.fillStyle = "Black";
-        ctx.fillRect(0, 400 + i * 20, 750, 2);
+        drawRect(ctx, 0, 400 + i * 20, 750, 2, "black");
     }
 
     for (let i = 0; i < 38; i++) {
-        ctx.fillStyle = "Black";
-        ctx.fillRect(i * 20, 400, 3, 300);
+        drawRect(ctx, i * 20, 400, 3, 300, "black");
     }
 }
 
-function drawHill(ctx, color){
+function drawHillOne(ctx, color) {
     ctx.fillStyle = color;
     ctx.fillRect(0, 335, 750, 70);
     ctx.fillStyle = color;
@@ -250,7 +197,15 @@ function drawHill(ctx, color){
     ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
     ctx.lineWidth = 50;
     ctx.strokeStyle = color;
-    ctx.closePath();
+    ctx.stroke();
+}
+
+function drawHillTwo(ctx, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(200, 270, 550, 150);
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
     ctx.stroke();
 }
 // Draw in all the bunnies
