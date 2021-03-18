@@ -15,6 +15,7 @@ let newBunColor = "white";
 let bunbuns = [bunbun];
 let grass_tiles = [];
 let daytime = "noon";
+let timer = 0;
 let fps = 200;
 let bunPopCntrl = "rand";
 function init() {
@@ -84,6 +85,9 @@ function update() {
     //Run grass update helper function
     grassUpdate();
 
+    // Change time of day automatically
+    daytimeUpdate();
+
     // Clear the screen and draw in the bunnies
     clear();
     drawBunbuns();
@@ -101,6 +105,9 @@ function clear() {
     if (daytime == "noon") {
         ctx.fillStyle = "Skyblue";
         ctx.fillRect(0, 0, canvas.width, 500);
+
+        ctx.fillStyle = "Yellow";
+        ctx.arc
 
         ctx.fillStyle = "white"
         ctx.fillRect(50, 70, 100, 40);
@@ -147,6 +154,23 @@ function clear() {
     ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
     ctx.stroke();
 
+    if(daytime=="sunset"){
+        ctx.fillStyle = "#c0e889";
+        ctx.fillRect(200, 270, 550, 150);
+        ctx.beginPath();
+        ctx.strokeStyle = "#c0e889";
+        ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+    else if(daytime=="night"){
+        ctx.fillStyle = "#6a9863";
+        ctx.fillRect(200, 270, 550, 150);
+        ctx.beginPath();
+        ctx.strokeStyle = "#6a9863";
+        ctx.ellipse(500, 300, 50, 250, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+
     // Hillside number 1
     ctx.fillStyle = "rgb(112, 224, 112)";
     ctx.fillRect(0, 335, 750, 70);
@@ -159,12 +183,37 @@ function clear() {
     ctx.strokeStyle = "rgb(112, 224, 112)";
     ctx.stroke();
 
+    if (daytime == "sunset") {
+        ctx.fillStyle = "#9aca58";
+        ctx.fillRect(0, 335, 750, 70);
+        ctx.fillStyle = "#9aca58";
+        ctx.fillRect(0, 300, 300, 100);
+        ctx.beginPath();
+        ctx.moveTo(0, 350);
+        ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
+        ctx.lineWidth = 50;
+        ctx.strokeStyle = "#9aca58";
+        ctx.stroke();
+    }
+    else if(daytime=="night"){
+        ctx.fillStyle = "#438743";
+        ctx.fillRect(0, 335, 750, 70);
+        ctx.fillStyle = "#438743";
+        ctx.fillRect(0, 300, 300, 100);
+        ctx.beginPath();
+        ctx.moveTo(0, 350);
+        ctx.bezierCurveTo(300, 150, 300, 500, 770, 300);
+        ctx.lineWidth = 50;
+        ctx.strokeStyle = "#438743";
+        ctx.stroke();
+    }
 
     // Draw in all the grass tiles w/proper color 
     for (let i = 0; i < grass_tiles.length; i++) {
         ctx.fillStyle = grass_tiles[i].color;
         ctx.fillRect(grass_tiles[i].x, grass_tiles[i].y, 20, 20);
     }
+    
 
     // Draw the grass borders 
     for (let i = 0; i < 5; i++) {
@@ -273,6 +322,16 @@ function grassSetUp() {
     }
 }
 
+// Used to change the time of the day automatically
+function daytimeUpdate(){
+    timer += 1;
+    
+    if(timer > 150 && daytime == "noon") daytime = "sunset";
+    else if(timer > 75 && daytime == "sunset") daytime = "night";
+    else if(timer > 150 && daytime == "night") daytime = "noon";
+
+    if(timer > 150) timer = 0;
+}
 
 /// Helper function to get random int
 function getRandomInt(min, max) {
@@ -287,8 +346,6 @@ function canvasClicked(e) {
     let rect = e.target.getBoundingClientRect();
     let mouseX = e.clientX - rect.x;
     let mouseY = e.clientY - rect.y;
-    console.log(mouseX, mouseY);
-
 
     if (bunbuns.length != 0) {
         for (let i = 0; i < bunbuns.length; i++) {
@@ -301,7 +358,6 @@ function canvasClicked(e) {
 
 // Kill some bunnies
 function huntBuns() {
-    console.log("Kill " + bunPopCntrl);
     for (let i = 0; i < 7; i++) {
         if(bunPopCntrl == "rand"){
             bunbuns[i].alive = false;

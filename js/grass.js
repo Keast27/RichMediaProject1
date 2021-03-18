@@ -18,9 +18,7 @@ class grass {
     // Have left it alone
     regrow()
     {
-        this.timer += 1;
-        
-        //console.log(this.timer);    
+        this.timer += 1; 
 
         if(this.timer > 50 && this.state < 5) 
         {
