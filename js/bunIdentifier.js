@@ -93,6 +93,7 @@ function drawStats(ctx) {
     }
 }
 
+// Find out what sex the bunny is
 function getSex(sex) {
     if (sex == "f") {
         return "Female";
@@ -102,6 +103,7 @@ function getSex(sex) {
     }
 }
 
+// Find out if the genes the bunny has are dominate or not
 function getGenes(genes) {
     let determinant = genes[0] + genes[1];
     if (determinant == 2) {

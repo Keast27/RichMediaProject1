@@ -43,7 +43,8 @@ function init() {
 
     // #7 Change time of day
     document.querySelector('#dayTimeChooser').onchange = function (e) {
-            daytime = e.target.value;
+        timer = 0;
+        daytime = e.target.value;
     };
 
     // #8 Add a new bunbun each time spawn button is pressed
