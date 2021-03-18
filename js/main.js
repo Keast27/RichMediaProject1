@@ -255,9 +255,6 @@ function addBunBun(x, y, color, g1, g2, hunger, health, age, sex, mated) {
     let bunbunTemp = new bunny(x, y, color, g1, g2, hunger, health, age, sex, mated);
     geneBasedOnColor(bunbunTemp);
     bunbuns.push(bunbunTemp);
-
-    // Add the health of the bunnies
-    document.querySelector('#health').innerHTML += '<br>' + "Bunny " + bunbuns.length + ": " + bunbuns[0].health;
 }
 
 // Color the bunny in based on their gene
